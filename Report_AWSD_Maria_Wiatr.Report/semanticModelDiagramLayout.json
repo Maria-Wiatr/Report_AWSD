@@ -1,0 +1,451 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 2242.5250056679947,
+        "y": 45.252746751147875
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 2241.9594518590211,
+            "y": 610.45195225822067
+          },
+          "nodeIndex": "Attack Dimension Parameter",
+          "nodeLineageTag": "2adb8e42-e7ca-4cb6-972d-65ef335fe6cc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1152.4126564110545,
+            "y": 1342.9039045164418
+          },
+          "nodeIndex": "AttackContext_Definitions",
+          "nodeLineageTag": "f64e7a09-4f43-45b6-8acb-a0463076cd4d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1050.1274528341442,
+            "y": -50
+          },
+          "nodeIndex": "AttackMeans_Definitions",
+          "nodeLineageTag": "36ca6075-6d2b-465c-9d3a-018175e23ee6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2525.9594518590211,
+            "y": 708.45195225822067
+          },
+          "nodeIndex": "Compare Period",
+          "nodeLineageTag": "403b19e9-649b-42b3-8bf5-42d407dd5c77",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2809.9594518590211,
+            "y": 610.45195225822067
+          },
+          "nodeIndex": "CountryYear Killed",
+          "nodeLineageTag": "50a484f1-cc7b-4261-aea8-53493ae3ffe8",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 865.32135366176078,
+            "y": 1196.6427383614241
+          },
+          "nodeIndex": "D Attack Context",
+          "nodeLineageTag": "701c7d11-b817-42f2-a355-f7736cedbc0e",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 910.84230271709816,
+            "y": 303.03643316632724
+          },
+          "nodeIndex": "D Attack Means",
+          "nodeLineageTag": "94bdd5b6-f185-453c-8043-fa2cdae6c2eb",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 285.52166555996507,
+            "y": 852.61715450855581
+          },
+          "nodeIndex": "D Date",
+          "nodeLineageTag": "d10eea5e-efe5-497c-8d6a-1cfb61db4409",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3093.9594518590211,
+            "y": 708.45195225822067
+          },
+          "nodeIndex": "D Gender",
+          "nodeLineageTag": "2674e83f-976f-4d60-bca1-c8fb9919a70b",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1042.2222826588954,
+            "y": 770.70757736822725
+          },
+          "nodeIndex": "D Incident Setting",
+          "nodeLineageTag": "01008e31-58f5-43ca-a8b8-f4f8afdf1ccc",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 623.73554852032055,
+            "y": 436.01768773544222
+          },
+          "nodeIndex": "D Location",
+          "nodeLineageTag": "81dec55e-b57d-447e-a431-ef854d56711b",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1108.613743999188,
+            "y": 974.59754670716836
+          },
+          "nodeIndex": "D Motive",
+          "nodeLineageTag": "1134128d-c2a6-4273-8b33-4e24dcf4eec3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3377.9594518590211,
+            "y": 708.45195225822067
+          },
+          "nodeIndex": "D Org Type",
+          "nodeLineageTag": "0269472e-a0dc-4e12-944b-eade855cd8ad",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3661.9594518590211,
+            "y": 708.45195225822067
+          },
+          "nodeIndex": "D Outcome Axis",
+          "nodeLineageTag": "cd81eb5f-33bb-445f-a02a-735caa44c034",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 323.27007015977279,
+            "y": 358.52434665272995
+          },
+          "nodeIndex": "D Perpetrator Type",
+          "nodeLineageTag": "399eda96-afc0-4c2d-8013-4abb3d55995f",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 579.57461213884312,
+            "y": 1090.4417626112395
+          },
+          "nodeIndex": "D Source",
+          "nodeLineageTag": "5526b164-df23-4679-b663-bc6d6935c594",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 336.7065264846425,
+            "y": 648.23929160769717
+          },
+          "nodeIndex": "D Verification Status",
+          "nodeLineageTag": "d6333783-9fe7-463a-bb63-92c99efb7798",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 610.22883560128844,
+            "y": 176.0678766940232
+          },
+          "nodeIndex": "DimPerpetratorGroup",
+          "nodeLineageTag": "82aff0e8-1b2e-430f-b371-b0a1f7e3c2c4",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 755.99399033690383,
+            "y": 737.448869682692
+          },
+          "nodeIndex": "F Incident",
+          "nodeLineageTag": "7f4498be-961e-42d8-951a-d9ea1ba9be7f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1333.6131188914731,
+            "y": 794.41850064459209
+          },
+          "nodeIndex": "IncidentSetting_Definitions",
+          "nodeLineageTag": "eeb0551a-f280-43a4-877a-f4c2893c8f8f",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3945.9594518590211,
+            "y": 684.45195225822067
+          },
+          "nodeIndex": "Mode",
+          "nodeLineageTag": "777c1c06-1afc-4318-ac17-157b6092e681",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1439.9594518590211,
+            "y": 1143.7019419631592
+          },
+          "nodeIndex": "Motive_Definitions",
+          "nodeLineageTag": "cdca0c24-fda3-41d4-86a7-0c72441fbc3e",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4229.9594518590211,
+            "y": 696.45195225822067
+          },
+          "nodeIndex": "Outcome",
+          "nodeLineageTag": "59a324d5-84ff-462e-9834-72ebb24f03b1",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4513.9594518590211,
+            "y": 672.45195225822067
+          },
+          "nodeIndex": "Perpetrator Dimension Parameter",
+          "nodeLineageTag": "5c4d4361-73a6-4862-aea8-e47367a96c84",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 496.89422548786979,
+            "y": -28.209352764004052
+          },
+          "nodeIndex": "PerpetratorGroup_Definitions",
+          "nodeLineageTag": "e7bc347c-e1a6-4736-927e-6db923ab090d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 607.35139633763583
+          },
+          "nodeIndex": "PerpetratorType_Definitions",
+          "nodeLineageTag": "b2be00f8-20b5-48a0-bd76-18cbe7955186",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4797.9594518590211,
+            "y": 684.45195225822067
+          },
+          "nodeIndex": "TopN Axis",
+          "nodeLineageTag": "15b1058b-0275-49f7-be52-6cad4745e5f9",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5081.9594518590211,
+            "y": 696.45195225822067
+          },
+          "nodeIndex": "UI_Selected",
+          "nodeLineageTag": "dcd43220-ce52-4c32-9448-f88923a9b7ab",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2007.9594518590211,
+            "y": 610.45195225822067
+          },
+          "nodeIndex": "DictionaryDetails",
+          "nodeLineageTag": "293c81f3-25b6-4b83-b8fb-b362747cda24",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1723.9594518590211,
+            "y": 622.45195225822067
+          },
+          "nodeIndex": "DictionaryFields",
+          "nodeLineageTag": "132b568b-7506-4c90-a402-96f659589f8b",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5365.9594518590211,
+            "y": 708.45195225822067
+          },
+          "nodeIndex": "Year Slicer",
+          "nodeLineageTag": "51299c4f-fef7-4fd4-abce-a622e29facfe",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5649.9594518590211,
+            "y": 684.45195225822067
+          },
+          "nodeIndex": "OrganisationAbbreviation_Definitions",
+          "nodeLineageTag": "6aa097db-e581-40d6-9e2e-20f87865a09c",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5933.9594518590211,
+            "y": 696.45195225822067
+          },
+          "nodeIndex": "refresh_audit",
+          "nodeLineageTag": "ebe22e60-28c8-424d-8895-a29b6bb51af5",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 79.553182037699912,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
