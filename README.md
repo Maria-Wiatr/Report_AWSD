@@ -11,7 +11,7 @@ Built as part of a master's dissertation at NOVA Information Management School, 
 
 ## What this is
 
-The AWSD documents major violent incidents affecting humanitarian personnel worldwide
+The AWSD (Aid Worker Security Database) documents major violent incidents affecting humanitarian personnel worldwide
 since 1997. This project transforms that data into a fully interactive
 Power BI report that supports self-directed exploration of trends, patterns, and
 victim profiles across nearly three decades of records.
