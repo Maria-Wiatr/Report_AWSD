@@ -24,7 +24,7 @@ and dynamic visual titles that update automatically with the filter context.
 
 ---
 
-## Data architecture
+## Data Architecture
 
 The data warehouse architecture runs entirely within **Microsoft Fabric**. The solution is organized as a master pipeline that orchestrates four sub-pipelines, each responsible for a specific stage of the data processing workflow.
 The diagram below shows the end-to-end flow:
