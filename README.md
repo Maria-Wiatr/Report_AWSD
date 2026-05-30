@@ -19,9 +19,6 @@ The report is organised into five pages, each designed to support a specific sta
 | **Victims** | National vs. international staff, gender distribution, organisation type, and outcome breakdown |
 | **Data Exploration** | Open-ended decomposition tree for user-driven breakdown across any combination of dimensions |
 
-All analytical pages share consistent global filters (country, year, incidents and outcome measure)
-and dynamic visual titles that update automatically with the filter context.
-
 ---
 
 ## Data Architecture
@@ -56,6 +53,8 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 
 <details>
 <summary><strong>Reference 1 – Metadata and Column Descriptions</strong></summary>
+
+This reference describes the AWSD dataset fields, including column names, data types, and definitions as provided by the source.
 
 | Column name | Description | Data type and allowed values |
 |---|---|---|
@@ -109,6 +108,8 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 <details>
 <summary><strong>Reference 2 – Pipeline Activities and Functions</strong></summary>
 
+This reference lists the activities and functions used in each pipeline, including their type, purpose, and execution order.
+
 | Execution phase | Activity type | Activity name (pattern) | Function | Pipeline |
 |---|---|---|---|---|
 | Ingestion | Dataflow | DF_INGEST_LH_API_AWSD | Ingests incident data from the AWSD API and stores raw records in the Lakehouse. | PL_LOAD_LH_AWSD |
@@ -142,6 +143,8 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 <details>
 <summary><strong>Reference 3 – Data Preprocessing and Standardization Rules</strong></summary>
 
+This reference documents the cleansing, deduplication, and standardisation rules applied during the Curation & Staging Load pipeline.
+
 | Category | Operation | Columns Affected | Rule / Modification |
 |---|---|---|---|
 | Text normalization | Trim text | All string columns | Removed leading and trailing whitespace |
@@ -169,6 +172,8 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 
 <details>
 <summary><strong>Reference 4 – Data Quality Validation Results Log</strong></summary>
+
+This reference logs the results of the five quality rules executed during the Data Validation & QA pipeline.
 
 | id_check | etl_phase | etl_table | etl_checktype | description_result | etl_result |
 |---|---|---|---|---|---|
@@ -203,6 +208,8 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 
 <details>
 <summary><strong>Reference 5 – Semantic Model: Tables and Columns</strong></summary>
+
+This reference lists all tables and columns in the Power BI semantic model, including data types and descriptions.
 
 | Table | Keys | Attributes | Core Analytical Measures |
 |---|---|---|---|
