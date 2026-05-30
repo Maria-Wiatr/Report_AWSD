@@ -9,7 +9,7 @@ Built as part of a master's dissertation at NOVA Information Management School, 
 
 ---
 
-## What this is
+## Overview
 
 The AWSD documents major violent incidents affecting humanitarian personnel worldwide
 since 1997. This project transforms that data into a fully interactive
