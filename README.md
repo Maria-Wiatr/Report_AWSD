@@ -232,11 +232,6 @@ This reference lists all tables and columns in the Power BI semantic model, orga
 This reference lists the measures used in the Power BI report and their DAX expressions.
 
 <details>
-### Reference F – DAX Measures
-
-The list below contains the report measures and their DAX definitions.
-
-<details>
 <summary><strong>Tooltip - PerpParam Active1</strong></summary>
 
 ```DAX
