@@ -36,7 +36,7 @@ The diagram below shows the end-to-end flow:
 <br>
 
 
-The table below summarises the role of each pipeline component.
+The table below summarises the role of each pipeline component:
 | Component | Description |
 |---|---|
 | **Source Ingestion Pipeline** | Retrieves incident records daily from the AWSD API (JSON) into the Lakehouse — no transformation, source structure preserved |
