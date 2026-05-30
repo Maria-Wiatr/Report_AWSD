@@ -12,7 +12,7 @@ Built as part of a master’s dissertation at NOVA Information Management School
 
 The report is organised into five pages, each designed to support a specific stage of data exploration:
 
-| Page | What it does |
+| Page | Description |
 |---|---|
 | **Home** | Introduction, data background, key definitions, and a long-term incident trend chart |
 | **Global Overview** | Temporal trends, geographic distribution, top affected countries, year-on-year comparison |
@@ -27,7 +27,7 @@ and dynamic visual titles that update automatically with the filter context.
 
 ## Data architecture
 
-The data warehouse architecture is implemented entirely within **Microsoft Fabric**. The solution is organized as a master pipeline that orchestrates four sub-pipelines, each responsible for a specific stage of the data processing workflow.
+The data warehouse architecture runs entirely within **Microsoft Fabric**. The solution is organized as a master pipeline that orchestrates four sub-pipelines, each responsible for a specific stage of the data processing workflow.
 The diagram below shows the end-to-end flow:
 
 <img width="949" height="222" alt="image" src="https://github.com/user-attachments/assets/390302de-df9d-4f41-baa7-58c6420abc8b" />
@@ -35,7 +35,7 @@ The diagram below shows the end-to-end flow:
 
 
 The table below summarises the role of each pipeline component.
-| Component | What it does |
+| Component | Description |
 |---|---|
 | **Source Ingestion Pipeline** | Retrieves incident records daily from the AWSD API (JSON) into the Lakehouse — no transformation, source structure preserved |
 | **Curation & Staging Load Pipeline** | Deduplicates, preprocesses, and standardises Lakehouse data; loads dimension and fact tables into the staging area |
