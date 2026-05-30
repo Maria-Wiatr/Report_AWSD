@@ -229,7 +229,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 </details>
 
 <details>
-<summary><strong>Reference F – Full DAX measure catalogue</strong></summary>
+<summary><strong>Reference F – Full DAX Measure Catalogue</strong></summary>
 
 This reference lists the measures used in the Power BI report and their DAX expressions.
 
