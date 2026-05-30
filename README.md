@@ -30,7 +30,7 @@ and dynamic visual titles that update automatically with the filter context.
 The data warehouse architecture runs entirely within **Microsoft Fabric**. The solution is organized as a master pipeline that orchestrates four sub-pipelines, each responsible for a specific stage of the data processing workflow.
 The diagram below shows the end-to-end flow:
 
-<img width="572" height="128" alt="image" src="https://github.com/user-attachments/assets/683ab720-e460-4f97-9254-af330994a219" />
+<img width="949" height="222" alt="image" src="https://github.com/user-attachments/assets/683ab720-e460-4f97-9254-af330994a219" />
 
 <br>
 
