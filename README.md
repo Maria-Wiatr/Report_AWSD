@@ -1,4 +1,4 @@
-# Aid Worker Security BI Report
+# Aid Worker Security Incidents BI Report
 
 An interactive Power BI report for exploring humanitarian security incident data
 from the [Aid Worker Security Database (AWSD)](https://www.aidworkersecurity.org/).
