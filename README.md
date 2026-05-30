@@ -26,7 +26,7 @@ and dynamic visual titles that update automatically with the filter context.
 
 ## Data Architecture
 
-The data warehouse architecture runs entirely within **Microsoft Fabric**. The solution is organized as a master pipeline that orchestrates four sub-pipelines, each responsible for a specific stage of the data processing workflow.
+The data warehouse architecture runs entirely within **Microsoft Fabric**. The solution is organized as a master pipeline that orchestrates four sub-pipelines, each responsible for a specific stage of the data processing workflow. The workflow follows the Medallion architecture pattern (Bronze → Silver → Gold), progressively refining raw API data into analytically optimised dimension and fact tables.
 The diagram below shows the end-to-end flow:
 
 <img width="949" height="222" alt="image" src="https://github.com/user-attachments/assets/2cc283fc-b877-4adb-85cd-7baf4a1c704f" />
@@ -45,7 +45,7 @@ The table below summarises the role of each pipeline component:
 | **Failure Notification Pipeline** | Sends an automated alert if any pipeline fails — enables early issue detection without manual monitoring |
 
 
-The semantic model sits on top of the data warehouse and prepares the data for reporting in Power BI. It follows a star schema, with the incident fact table connected to the main analytical dimensions used throughout the report.
+The semantic model sits on top of the data warehouse and prepares the data for reporting in Power BI. It follows a star schema based on Kimball's dimensional modelling methodology. The grain is one row per recorded security incident. Measures include counts of affected individuals (killed, wounded, kidnapped, detained), disaggregated by nationality status, organisation type, and gender. Nine dimension tables provide analytical context — Date, Location, Attack Context, Attack Means, Incident Setting, Motive, Perpetrator Type, Source, and Verification Status.
 
 <img width="949" height="345" alt="image" src="https://github.com/user-attachments/assets/63ff3cce-ffc6-4908-b238-2dfe8ae92cc9" />
 
