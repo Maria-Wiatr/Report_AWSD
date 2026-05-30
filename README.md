@@ -1,20 +1,10 @@
 # Aid Worker Security Incidents BI Report
 
-An interactive Power BI report for exploring humanitarian security incident data
-from the [Aid Worker Security Database (AWSD)](https://www.aidworkersecurity.org/).
+This interactive Power BI report presents major security incidents affecting humanitarian personnel worldwide, using data from the [Aid Worker Security Database (AWSD)](https://www.aidworkersecurity.org/). It supports self-directed exploration of nearly three decades of AWSD records.
 
-Built as part of a master's dissertation at NOVA Information Management School, 2026.
+Built as part of a master’s dissertation at NOVA Information Management School, 2026.
 
 🔗 [View the live report](https://maria-wiatr.github.io/Report_AWSD_em/) 🔗
-
----
-
-## Overview
-
-The AWSD documents major violent incidents affecting humanitarian personnel worldwide
-since 1997. This project transforms that data into a fully interactive
-Power BI report that supports self-directed exploration of trends, patterns, and
-victim profiles across nearly three decades of records.
 
 ---
 
