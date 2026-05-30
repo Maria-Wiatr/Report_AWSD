@@ -50,6 +50,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 ---
 
 ## Technical References
+Expand any section below for detailed documentation.
 
 <details>
 <summary><strong>Reference 1 – Metadata and Column Descriptions</strong></summary>
