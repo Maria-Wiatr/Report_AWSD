@@ -42,7 +42,7 @@ The table below summarises the role of each pipeline component:
 | **Failure Notification Pipeline** | Sends an automated alert if any pipeline fails — enables early issue detection without manual monitoring |
 
 
-The semantic model sits on top of the data warehouse and prepares the data for reporting in Power BI. It follows a star schema based on Kimball's dimensional modelling methodology. The grain is one row per recorded security incident. Measures include counts of affected individuals (killed, wounded, kidnapped, detained), disaggregated by nationality status, organisation type, and gender. Nine dimension tables provide analytical context — Date, Location, Attack Context, Attack Means, Incident Setting, Motive, Perpetrator Type, Source, and Verification Status.
+The semantic model sits on top of the data warehouse and prepares the data for reporting in Power BI. It follows a star schema based on Kimball's dimensional modelling methodology. The grain is one row per recorded security incident. Measures include counts of affected individuals (killed, wounded, kidnapped, detained), disaggregated by nationality status, organisation type, and gender. Nine dimension tables provide analytical context — Date, Location, Attack Context, Attack Means, Incident Setting, Motive, Perpetrator Type, Source, and Verification Status. See the semantic model's diagram below: 
 
 <img width="949" height="345" alt="image" src="https://github.com/user-attachments/assets/63ff3cce-ffc6-4908-b238-2dfe8ae92cc9" />
 
