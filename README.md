@@ -232,498 +232,251 @@ This reference lists all tables and columns in the Power BI semantic model, orga
 This reference lists the measures used in the Power BI report and their DAX expressions.
 
 <details>
-<summary><strong>Tooltip - PerpParam Active1</strong></summary>
+<summary><strong>Reference F – DAX Measures</strong></summary>
 
-```DAX
-VAR _fields =
-    SELECTEDVALUE ( 'Perpetrator Dimension Parameter1'[Parameter Fields] )
-RETURN
-SWITCH(
-    TRUE(),
-    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Motive"), "Motive",
-    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Perpetrator Type"), "Perpetrator Type",
-    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Perpetrator Group"), "Perpetrator Group",
-    BLANK()
-)
-```
-</details>
-
-<details>
-<summary><strong>Tooltip - PerpParam TermDefinition correct</strong></summary>
-
-```DAX
-VAR _active = [Tooltip - PerpParam Active1]
-
-VAR _Type  = SELECTEDVALUE ( 'D Perpetrator Type'[Perpetrator Type] )
-VAR _Group = SELECTEDVALUE ( 'DimPerpetratorGroup'[Perpetrator Group] )
-VAR _Motive = SELECTEDVALUE ( 'D Motive'[Motive] )
-
-RETURN
-SWITCH(
-    _active,
-
-    "Motive",
-        LOOKUPVALUE(
-            Motive_Definitions[TermDefinition],
-            Motive_Definitions[Motive], _Motive
-        ),
-
-    "Perpetrator Type",
-        LOOKUPVALUE(
-            PerpetratorType_Definitions[TermDefinition],
-            PerpetratorType_Definitions[Perpetrator Type], _Type
-        ),
-
-    "Perpetrator Group",
-        LOOKUPVALUE(
-            PerpetratorGroup_Definitions[TermDefinition],
-            PerpetratorGroup_Definitions[Perpetrator Group], _Group
-        ),
-
-    BLANK()
-)
-```
-</details>
-
-<details>
-<summary><strong>Tooltip Definition correct</strong></summary>
-
-```DAX
-VAR _order = SELECTEDVALUE('Attack Dimension Parameter1'[Parameter Order]) RETURN SWITCH( _order, 0, SELECTEDVALUE(AttackMeans_Definitions[Definition]), 1, SELECTEDVALUE(AttackContext_Definitions[Definition]), 2, SELECTEDVALUE(IncidentSetting_Definitions[Definition]), BLANK() )
-```
-</details>
+This reference lists the DAX measures used in the semantic model.
 
 <details>
 <summary><strong>% Nationals</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("% Nationals", DOUBLE, "DirectQuery to AS - SM_AWSD")
+
+DIVIDE(
+    [Selected Outcome Total — Nationals],
+    [Selected Outcome Total1]
+)
+
 ```
-</details>
 
-<details>
-<summary><strong>Comparison Value (Outcome)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Comparison Value (Outcome)", DOUBLE, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Country Phrase (Map Title)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Country Phrase (Map Title)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Country Rank (Nat+Int)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Country Rank (Nat+Int)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Country Rank (Selected Outcome)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Country Rank (Selected Outcome)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Dynamic Total Label</strong></summary>
-
-```DAX
-VAR OutcomeSelected =
-    SELECTEDVALUE ( Outcome[Outcome], "All" )
-RETURN
-    SWITCH (
-        OutcomeSelected,
-        "All", "Total affected:",
-        "Killed", "Total killed:",
-        "Wounded", "Total wounded:",
-        "Kidnapped", "Total kidnapped:",
-        "Detained", "Total detained:",
-        "Total affected:"
-    )
-```
-</details>
-
-<details>
-<summary><strong>Gender Total (All outcomes)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Gender Total (All outcomes)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Has Data (Nat+Int)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Has Data (Nat+Int)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Internationals by Outcome (Axis)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Internationals by Outcome (Axis)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>KPI Column Header</strong></summary>
-
-```DAX
-EXTERNALMEASURE("KPI Column Header", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Map Title (Dynamic)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Map Title (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Nat vs Int Difference</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Nat vs Int Difference", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Nationals by Outcome (Axis)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Nationals by Outcome (Axis)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Org Victims Total (Pie)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Org Victims Total (Pie)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Outcome Comparison Title</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Outcome Comparison Title", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Outcome Label (Title)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Outcome Label (Title)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Outcome Phrase (Title)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Outcome Phrase (Title)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Previous Year (Outcome)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Previous Year (Outcome)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Selected Outcome Color</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Selected Outcome Color", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Selected Outcome Total — Internationals</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Selected Outcome Total — Internationals", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Selected Outcome Total — Internationals (Plot)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Selected Outcome Total — Internationals (Plot)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Selected Outcome Total — Nat+Int</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Selected Outcome Total — Nat+Int", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Selected Outcome Total — Nat+Int1</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Selected Outcome Total — Nat+Int1", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Selected Outcome Total — Nationals</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Selected Outcome Total — Nationals", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Selected Outcome Total — Nationals (Plot)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Selected Outcome Total — Nationals (Plot)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Selected Year (Outcome)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Selected Year (Outcome)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Show Top 3 Countries</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Show Top 3 Countries", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Title — &lt;Visual Name&gt;</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Title — <Visual Name>", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Title — Gender Distribution</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Title — Gender Distribution", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Title — Nat vs Int by Outcome</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Title — Nat vs Int by Outcome", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Title — Nat vs Int Trend</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Title — Nat vs Int Trend", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Title — Nationals vs Internationals</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Title — Nationals vs Internationals", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Title — Top Countries (Nat vs Int)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Title — Top Countries (Nat vs Int)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Top Countries Title (Dynamic)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Top Countries Title (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Trend Multi-Outcome Title</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Trend Multi-Outcome Title", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Year Label (Title)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Year Label (Title)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Year Phrase (Title)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Year Phrase (Title)", STRING, "DirectQuery to AS - SM_AWSD")
-```
 </details>
 
 <details>
 <summary><strong>All Countries Selected</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("All Countries Selected", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+VAR _selected =
+    COUNTROWS ( ALLSELECTED ( 'D Location'[Country] ) )
+VAR _total =
+    COUNTROWS ( ALL ( 'D Location'[Country] ) )
+RETURN
+IF ( _selected = _total, 1, 0 )
 ```
-</details>
 
-<details>
-<summary><strong>Country Filter Applied</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Country Filter Applied", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Country Filter Applied (Slicer Only)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Country Filter Applied (Slicer Only)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Incidents Kidnapped</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Incidents Kidnapped", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Incidents Killed</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Incidents Killed", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Incidents Wounded</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Incidents Wounded", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Show Top Countries Visual</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Show Top Countries Visual", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Title — Heatmap (Dynamic)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Title — Heatmap (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Incidents (Selected Outcome)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Incidents (Selected Outcome)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Killed (Heatmap)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Killed (Heatmap)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
 </details>
 
 <details>
 <summary><strong>All Countries Selected (Slicer)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("All Countries Selected (Slicer)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+VAR Sel =
+    CALCULATE(
+        DISTINCTCOUNT('D Location'[Country]),
+        ALLSELECTED('D Location'[Country]),
+        REMOVEFILTERS('D Location'[Country])   
+    )
+VAR AllC =
+    CALCULATE(
+        DISTINCTCOUNT('D Location'[Country]),
+        ALL('D Location'[Country])
+    )
+RETURN
+IF( Sel = 0 || Sel = AllC, 1, 0 )
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Attack Dimension Definition</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Attack Dimension Definition", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR DimSel =
+    SELECTEDVALUE('Attack Dimension Parameter'[Attack Dimension Parameter Fields])
+
+RETURN
+SWITCH(
+    TRUE(),
+
+    CONTAINSSTRING(DimSel, "Attack Means"),
+        SELECTEDVALUE(AttackMeans_Definitions[Definition]),
+
+    CONTAINSSTRING(DimSel, "Attack Context"),
+        SELECTEDVALUE(AttackContext_Definitions[Definition]),
+
+    CONTAINSSTRING(DimSel, "Incident Setting"),
+        SELECTEDVALUE(IncidentSetting_Definitions[Definition]),
+
+    BLANK()
+)
 ```
+
+</details>
+
+<details>
+<summary><strong>Comparison Value (Outcome)</strong></summary>
+
+```DAX
+
+SWITCH(
+    SELECTEDVALUE('Compare Period'[Period]),
+    "Selected year", [Selected Year (Outcome)],
+    "Previous year", [Previous Year (Outcome)],
+    "3-year avg",    [Outcome (3-year avg)],
+    BLANK()
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Country Filter Applied</strong></summary>
+
+```DAX
+
+VAR SelCountries =
+    COUNTROWS(ALLSELECTED('D Location'[Country]))
+VAR AllCountries =
+    COUNTROWS(ALL('D Location'[Country]))
+RETURN
+IF(
+    SelCountries = 0 || SelCountries = AllCountries,
+    0,   -- not applied (All)
+    1    -- applied (some subset selected)
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Country Filter Applied (Slicer Only)</strong></summary>
+
+```DAX
+
+VAR Sel =
+    CALCULATE(
+        DISTINCTCOUNT('D Location'[Country]),
+        ALLSELECTED('D Location'[Country]),
+        REMOVEFILTERS('D Location'[Country])   -- ignores visual-level filtering like Top 5
+    )
+VAR AllC =
+    CALCULATE(
+        DISTINCTCOUNT('D Location'[Country]),
+        ALL('D Location'[Country])
+    )
+RETURN
+IF(
+    Sel = 0 || Sel = AllC,
+    0,   -- slicer is effectively "All"
+    1    -- slicer is selecting a subset
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Country Phrase (Map Title)</strong></summary>
+
+```DAX
+
+IF(
+    [All Countries Selected] = 1,
+    "worldwide",
+    "in " & SELECTEDVALUE('D Location'[Country])
+)
+
+```
+
 </details>
 
 <details>
 <summary><strong>Country Rank (Incidents)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Country Rank (Incidents)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+RANKX (
+    ALL ( 'D Location'[Country] ),
+    [Total Incidents],
+    ,
+    DESC,
+    DENSE
+)
 ```
+
+</details>
+
+<details>
+<summary><strong>Country Rank (Nat+Int)</strong></summary>
+
+```DAX
+
+RANKX(
+    ALLSELECTED('D Location'[Country]),
+    [Selected Outcome Total — Nat+Int],
+    ,
+    DESC,
+    DENSE
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Country Rank (Selected Outcome)</strong></summary>
+
+```DAX
+
+RANKX(
+    ALLSELECTED('D Location'[Country]),
+    [Selected Outcome Total1],
+    ,
+    DESC,
+    DENSE
+)
+
+```
+
 </details>
 
 <details>
 <summary><strong>Country Total (TopN Perpetrator Heatmap)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Country Total (TopN Perpetrator Heatmap)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+CALCULATE(
+    [Selected Outcome Total1],
+    REMOVEFILTERS('Perpetrator Dimension Parameter')
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Country Total (TopN)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Country Total (TopN)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+CALCULATE(
+    [Selected Outcome Total1],
+    REMOVEFILTERS('Attack Dimension Parameter')
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Dynamic Tree Title</strong></summary>
 
 ```DAX
+
 VAR _outcome =
     SELECTEDVALUE(Outcome[Outcome], "Incidents")
 
@@ -775,765 +528,3446 @@ RETURN
     & _countryText & " "
     & _yearText
     & _noDataText
-```
-</details>
 
-<details>
-<summary><strong>Dynamic Tree Title 2</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Dynamic Tree Title", STRING, "DirectQuery to AS - SM_AWSD")
 ```
+
 </details>
 
 <details>
 <summary><strong>First Data Year</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("First Data Year", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+CALCULATE (
+    MIN ( 'D Date'[Year] ),
+    ALL ( 'D Date' )
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Gender Female Total</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Gender Female Total", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+SUM('F Incident'[Gender Female])
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Gender Male Total</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Gender Male Total", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+SUM('F Incident'[Gender Male])
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Gender Total (All outcomes)</strong></summary>
+
+```DAX
+
+SWITCH(
+    SELECTEDVALUE('D Gender'[Gender]),
+    "Female",  SUM('F Incident'[Gender Female]),
+    "Male",    SUM('F Incident'[Gender Male]),
+    "Unknown", SUM('F Incident'[Gender Unknown]),
+    BLANK()
+)
+
+```
+
 </details>
 
 <details>
 <summary><strong>Gender Unknown Total</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Gender Unknown Total", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+SUM('F Incident'[Gender Unknown])
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Has Data (Nat+Int)</strong></summary>
+
+```DAX
+
+IF ( [Selected Outcome Total — Nat+Int1] > 0, 1, 0 )
+```
+
 </details>
 
 <details>
 <summary><strong>HelpHover</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("HelpHover", STRING, "DirectQuery to AS - SM_AWSD")
+"ⓘ"
 ```
+
+</details>
+
+<details>
+<summary><strong>Incidents Kidnapped</strong></summary>
+
+```DAX
+
+SUMX(
+    VALUES('F Incident'[Incident ID]),
+    VAR v = [Total Kidnapped]
+    RETURN IF( v > 0, 1, 0 )
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Incidents Killed</strong></summary>
+
+```DAX
+
+SUMX(
+    VALUES('F Incident'[Incident ID]),
+    VAR v = [Total Killed]
+    RETURN IF( v > 0, 1, 0 )
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Incidents Wounded</strong></summary>
+
+```DAX
+
+SUMX(
+    VALUES('F Incident'[Incident ID]),
+    VAR v = [Total Wounded]
+    RETURN IF( v > 0, 1, 0 )
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Internationals by Outcome (Axis)</strong></summary>
+
+```DAX
+
+VAR o = SELECTEDVALUE('D Outcome Axis'[Outcome])
+RETURN
+SWITCH(
+    o,
+    "Killed",     SUM('F Incident'[Internationals Killed]),
+    "Wounded",    SUM('F Incident'[Internationals Wounded]),
+    "Kidnapped",  SUM('F Incident'[Internationals Kidnapped]),
+    "Detained",   SUM('F Incident'[Internationals Detained])
+)
+
+```
+
 </details>
 
 <details>
 <summary><strong>Kidnapped (3-year avg)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Kidnapped (3-year avg)", DOUBLE, "DirectQuery to AS - SM_AWSD")
+
+VAR IsSingleYear = HASONEVALUE ( 'D Date'[Year] )
+VAR Y = SELECTEDVALUE ( 'D Date'[Year] )
+VAR FirstY = [First Data Year]
+
+VAR V1 =
+    CALCULATE (
+        [Total Kidnapped],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 1
+    )
+VAR V2 =
+    CALCULATE (
+        [Total Kidnapped],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 2
+    )
+VAR V3 =
+    CALCULATE (
+        [Total Kidnapped],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 3
+    )
+
+VAR YearsOverZero =
+    IF ( NOT ISBLANK ( V1 ) && V1 > 0, 1, 0 ) +
+    IF ( NOT ISBLANK ( V2 ) && V2 > 0, 1, 0 ) +
+    IF ( NOT ISBLANK ( V3 ) && V3 > 0, 1, 0 )
+
+RETURN
+IF (
+    NOT IsSingleYear
+        || Y <= FirstY + 2
+        || YearsOverZero < 2,
+    BLANK(),
+    DIVIDE ( COALESCE ( V1, 0 ) + COALESCE ( V2, 0 ) + COALESCE ( V3, 0 ), 3 )
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Kidnapped (line)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Kidnapped (line)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+IF (
+    SELECTEDVALUE ( Outcome[Outcome], "Killed" ) = "Kidnapped",
+    [Total Kidnapped],
+    BLANK()
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Kidnapped (Previous Year)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Kidnapped (Previous Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+VAR Y = [Selected Year]
+VAR FirstY = [First Data Year]
+RETURN
+IF (
+    Y <= FirstY,
+    BLANK(),
+    CALCULATE (
+        [Total Kidnapped],
+        FILTER ( ALL ( 'D Date'[Year] ), 'D Date'[Year] = Y - 1 )
+    )
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Kidnapped (Selected Year)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Kidnapped (Selected Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+VAR Y = [Selected Year]
+RETURN
+CALCULATE(
+    [Total Kidnapped],
+    FILTER(ALL('D Date'[Year]), 'D Date'[Year] = Y)
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Kidnapped Comparison Title</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Kidnapped Comparison Title", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR IsSingleYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR IsGlobal =
+    NOT ISFILTERED ( 'D Location'[Country] )
+
+VAR CountryLabel =
+    SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR TitlePrefix =
+    IF (
+        IsGlobal,
+        "Kidnapped globally — ",
+        "Kidnapped in " & CountryLabel & " — "
+    )
+
+VAR Y = SELECTEDVALUE ( 'D Date'[Year] )
+VAR CurKidnapped = COALESCE ( [Total Kidnapped], 0 )
+
+VAR CurIncRows =
+    CALCULATE (
+        COUNTROWS ( 'F Incident' ),
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y
+    )
+
+VAR PrevIncRows =
+    CALCULATE (
+        COUNTROWS ( 'F Incident' ),
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 1
+    )
+
+VAR FirstIncidentYear =
+    MINX (
+        FILTER (
+            ALL ( 'D Date'[Year] ),
+            CALCULATE ( COUNTROWS ( 'F Incident' ) ) > 0
+        ),
+        'D Date'[Year]
+    )
+
+VAR PrevKidnapped =
+    COALESCE (
+        CALCULATE (
+            [Total Kidnapped],
+            REMOVEFILTERS ( 'D Date'[Year] ),
+            'D Date'[Year] = Y - 1
+        ),
+        0
+    )
+
+VAR YoY_Pct =
+    IF ( PrevKidnapped > 0, DIVIDE ( CurKidnapped - PrevKidnapped, PrevKidnapped ), BLANK () )
+
+VAR BracketLabel =
+    SWITCH (
+        TRUE (),
+
+        PrevIncRows = 0,
+            BLANK (),
+
+        PrevKidnapped > 0 && CurKidnapped > PrevKidnapped,
+            "(" & UNICHAR ( 9650 ) & " " & FORMAT ( YoY_Pct, "0%" ) & ")",
+
+        PrevKidnapped > 0 && CurKidnapped < PrevKidnapped,
+            "(" & UNICHAR ( 9660 ) & " " & FORMAT ( ABS ( YoY_Pct ), "0%" ) & ")",
+
+        PrevKidnapped > 0 && CurKidnapped = PrevKidnapped,
+            "(no change)",
+
+        PrevKidnapped = 0 && CurKidnapped > 0,
+            "(" & UNICHAR ( 9650 ) & " from 0)",
+
+        PrevKidnapped = 0 && CurKidnapped = 0,
+            "(no change)"
+    )
+
+VAR Avg3 = [Kidnapped (3-year avg)]
+VAR AvgText =
+    IF (
+        NOT ISBLANK ( Avg3 ),
+        " and the 3-year average (" & FORMAT ( Y - 3, "0" ) & "–" & FORMAT ( Y - 1, "0" ) & ")",
+        BLANK ()
+    )
+
+VAR MainText =
+    SWITCH (
+        TRUE (),
+
+        NOT IsSingleYear,
+            "Graph not applicable for multiple years",
+
+        CurIncRows = 0,
+            FORMAT ( Y, "0" ) & " (no incidents recorded)",
+
+        Y = FirstIncidentYear,
+            FORMAT ( Y, "0" ) & " (first year with incidents recorded)",
+
+        PrevIncRows = 0,
+            FORMAT ( Y, "0" ) & " (no incidents recorded in " & FORMAT ( Y - 1, "0" ) & ")",
+
+        TRUE,
+            FORMAT ( Y, "0" ) &
+            " compared with " & FORMAT ( Y - 1, "0" ) &
+            IF ( NOT ISBLANK ( BracketLabel ), " " & BracketLabel, BLANK () ) &
+            AvgText
+    )
+
+RETURN
+TitlePrefix & MainText
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Killed (3-year avg)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Killed (3-year avg)", DOUBLE, "DirectQuery to AS - SM_AWSD")
+
+VAR IsSingleYear = HASONEVALUE ( 'D Date'[Year] )
+VAR Y = SELECTEDVALUE ( 'D Date'[Year] )
+VAR FirstY = [First Data Year]
+
+VAR V1 =
+    CALCULATE (
+        [Total Killed],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 1
+    )
+VAR V2 =
+    CALCULATE (
+        [Total Killed],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 2
+    )
+VAR V3 =
+    CALCULATE (
+        [Total Killed],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 3
+    )
+
+VAR YearsOverZero =
+    IF ( NOT ISBLANK ( V1 ) && V1 > 0, 1, 0 ) +
+    IF ( NOT ISBLANK ( V2 ) && V2 > 0, 1, 0 ) +
+    IF ( NOT ISBLANK ( V3 ) && V3 > 0, 1, 0 )
+
+RETURN
+IF (
+    NOT IsSingleYear
+        || Y <= FirstY + 2
+        || YearsOverZero < 2,
+    BLANK(),
+    DIVIDE ( COALESCE ( V1, 0 ) + COALESCE ( V2, 0 ) + COALESCE ( V3, 0 ), 3 )
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Killed (line)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Killed (line)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+IF (
+    SELECTEDVALUE ( Outcome[Outcome], "Killed" ) = "Killed",
+    [Total Killed],
+    BLANK()
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Killed (Previous Year)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Killed (Previous Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+VAR Y = [Selected Year]
+VAR FirstY = [First Data Year]
+RETURN
+IF (
+    Y <= FirstY,
+    BLANK(),
+    CALCULATE (
+        [Total Killed],
+        FILTER ( ALL ( 'D Date'[Year] ), 'D Date'[Year] = Y - 1 )
+    )
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Killed (Selected Year)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Killed (Selected Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+VAR Y = [Selected Year]
+RETURN
+CALCULATE(
+    [Total Killed],
+    FILTER(ALL('D Date'[Year]), 'D Date'[Year] = Y)
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Killed Comparison Title</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Killed Comparison Title", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR IsSingleYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR IsGlobal =
+    NOT ISFILTERED ( 'D Location'[Country] )
+
+VAR CountryLabel =
+    SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR TitlePrefix =
+    IF (
+        IsGlobal,
+        "Killed globally — ",
+        "Killed in " & CountryLabel & " — "
+    )
+
+VAR Y = SELECTEDVALUE ( 'D Date'[Year] )
+VAR CurKilled = COALESCE ( [Total Killed], 0 )
+
+-- incident rows in selected year / prev year for the current context (country etc.)
+VAR CurIncRows =
+    CALCULATE (
+        COUNTROWS ( 'F Incident' ),
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y
+    )
+
+VAR PrevIncRows =
+    CALCULATE (
+        COUNTROWS ( 'F Incident' ),
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 1
+    )
+
+-- first year with ANY incidents recorded in the current context
+VAR FirstIncidentYear =
+    MINX (
+        FILTER (
+            ALL ( 'D Date'[Year] ),
+            CALCULATE ( COUNTROWS ( 'F Incident' ) ) > 0
+        ),
+        'D Date'[Year]
+    )
+
+-- previous year killed value (0 if none)
+VAR PrevKilled =
+    COALESCE (
+        CALCULATE (
+            [Total Killed],
+            REMOVEFILTERS ( 'D Date'[Year] ),
+            'D Date'[Year] = Y - 1
+        ),
+        0
+    )
+
+VAR YoY_Pct =
+    IF ( PrevKilled > 0, DIVIDE ( CurKilled - PrevKilled, PrevKilled ), BLANK () )
+
+-- bracket label rules
+VAR BracketLabel =
+    SWITCH (
+        TRUE (),
+
+        PrevIncRows = 0,
+            BLANK (),  -- don't show brackets if there were no incidents at all in prev year
+
+        PrevKilled > 0 && CurKilled > PrevKilled,
+            "(" & UNICHAR ( 9650 ) & " " & FORMAT ( YoY_Pct, "0%" ) & ")",
+
+        PrevKilled > 0 && CurKilled < PrevKilled,
+            "(" & UNICHAR ( 9660 ) & " " & FORMAT ( ABS ( YoY_Pct ), "0%" ) & ")",
+
+        PrevKilled > 0 && CurKilled = PrevKilled,
+            "(no change)",
+
+        PrevKilled = 0 && CurKilled > 0,
+            "(" & UNICHAR ( 9650 ) & " from 0)",
+
+        PrevKilled = 0 && CurKilled = 0,
+            "(no change)"
+    )
+
+-- 3-year avg text only when your avg measure returns a value
+VAR Avg3 = [Killed (3-year avg)]
+VAR AvgText =
+    IF (
+        NOT ISBLANK ( Avg3 ),
+        " and the 3-year average (" & FORMAT ( Y - 3, "0" ) & "–" & FORMAT ( Y - 1, "0" ) & ")",
+        BLANK ()
+    )
+
+VAR MainText =
+    SWITCH (
+        TRUE (),
+
+        NOT IsSingleYear,
+            "Comparison chart not available when Years = All",
+
+        -- No incidents in selected year: be explicit
+        CurIncRows = 0,
+            FORMAT ( Y, "0" ) & " (no incidents recorded)",
+
+        -- First year with incidents: this is your Ukraine 2022 case
+        Y = FirstIncidentYear,
+            FORMAT ( Y, "0" ) & " (first year with incidents recorded)",
+
+        -- Incidents exist this year but not last year
+        PrevIncRows = 0,
+            FORMAT ( Y, "0" ) & " (no incidents recorded in " & FORMAT ( Y - 1, "0" ) & ")",
+
+        -- Normal comparison
+        TRUE,
+            FORMAT ( Y, "0" ) &
+            " compared with " & FORMAT ( Y - 1, "0" ) &
+            IF ( NOT ISBLANK ( BracketLabel ), " " & BracketLabel, BLANK () ) &
+            AvgText
+    )
+
+RETURN
+TitlePrefix & MainText
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Killed YoY %</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Killed YoY %", DOUBLE, "DirectQuery to AS - SM_AWSD")
+
+VAR Y = SELECTEDVALUE('D Date'[Year])
+VAR Cur = [Total Killed]
+VAR Prev =
+    CALCULATE(
+        [Total Killed],
+        REMOVEFILTERS('D Date'[Year]),
+        'D Date'[Year] = Y - 1
+    )
+RETURN
+IF(
+    NOT HASONEVALUE('D Date'[Year]),
+    BLANK(),
+    IF(
+        ISBLANK(Prev) || Prev = 0,
+        BLANK(),
+        DIVIDE(Cur - Prev, Prev)
+    )
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Killed YoY Text</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Killed YoY Text", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR Y = SELECTEDVALUE('D Date'[Year])
+VAR Cur = [Total Killed]
+VAR Prev =
+    CALCULATE(
+        [Total Killed],
+        REMOVEFILTERS('D Date'[Year]),
+        'D Date'[Year] = Y - 1
+    )
+VAR Pct = [Killed YoY %]
+RETURN
+IF(
+    NOT HASONEVALUE('D Date'[Year]),
+    "Select a single year",
+    IF(
+        ISBLANK(Prev),
+        "N/A vs previous year",
+        IF(
+            Prev = 0,
+            IF(Cur = 0, "No change vs previous year", "New vs previous year"),
+            IF(
+                Pct > 0,
+                UNICHAR(9650) & " " & FORMAT(Pct, "0%") & " vs previous year",
+                IF(
+                    Pct < 0,
+                    UNICHAR(9660) & " " & FORMAT(ABS(Pct), "0%") & " vs previous year",
+                    "No change vs previous year"
+                )
+            )
+        )
+    )
+)
+
 ```
+
+</details>
+
+<details>
+<summary><strong>KPI Column Header</strong></summary>
+
+```DAX
+
+VAR _countryText =
+    IF (
+        [All Countries Selected] = 1,
+        "Worldwide",
+        SELECTEDVALUE ( 'D Location'[Country] )
+    )
+RETURN
+    _countryText & " " & [Year Phrase (Title)]
+```
+
 </details>
 
 <details>
 <summary><strong>Last Refresh Text</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Last Refresh Text", STRING, "DirectQuery to AS - SM_AWSD")
+
+"Report last refreshed on " & 
+FORMAT(
+    MAX(refresh_audit[last_successful_load]),
+    "dd mmmm yyyy"
+) & "."
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Line Title</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Line Title", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR O = SELECTEDVALUE(Outcome[Outcome], "Killed")
+RETURN
+"Trend in aid workers " & LOWER(O) & " over time (total numbers)"
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Map Title</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Map Title", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR O = SELECTEDVALUE(Outcome[Outcome], "Killed")
+RETURN
+"Geographic distribution of aid workers " & LOWER(O) & " (total numbers)"
 ```
+
+</details>
+
+<details>
+<summary><strong>Map Title (Dynamic)</strong></summary>
+
+```DAX
+
+VAR _selOutcome =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR _metricText =
+    IF ( _selOutcome = "Incidents", "Incidents", [Outcome Phrase (Title)] )
+
+VAR _countryText = "globally"
+
+/* Show note ONLY when a subset of non-blank countries is selected */
+VAR _availableCountries =
+    CALCULATETABLE (
+        VALUES ( 'D Location'[Country] ),
+        REMOVEFILTERS ( 'D Location'[Country] ),
+        'D Location'[Country] <> BLANK()
+    )
+
+VAR _selectedCountries =
+    FILTER (
+        VALUES ( 'D Location'[Country] ),
+        'D Location'[Country] <> BLANK()
+    )
+
+VAR _countryFiltered =
+    COUNTROWS ( EXCEPT ( _availableCountries, _selectedCountries ) ) > 0
+
+VAR _countryNote =
+    IF ( _countryFiltered, " (not impacted by country selection)", "" )
+
+VAR _baseTitleRaw =
+    "Total "
+        & _metricText & " "
+        & _countryText & " "
+        & [Year Phrase (Title)]
+
+VAR _baseTitleNoTotal =
+    SUBSTITUTE ( _baseTitleRaw, "Total ", "" )
+
+VAR _baseTitleCased =
+    UPPER ( LEFT ( _baseTitleNoTotal, 1 ) )
+        & MID ( _baseTitleNoTotal, 2, LEN ( _baseTitleNoTotal ) - 1 )
+
+VAR _valueGlobal =
+    CALCULATE ( [Selected Outcome Total1], REMOVEFILTERS ( 'D Location'[Country] ) )
+
+VAR _noRecorded =
+    ISBLANK ( _valueGlobal ) || _valueGlobal = 0
+
+VAR _noDataSuffix =
+    IF ( _selOutcome = "Incidents", " (no incidents recorded)", " (no data recorded)" )
+
+RETURN
+    IF (
+        _noRecorded,
+        _baseTitleCased & _countryNote & _noDataSuffix,
+        _baseTitleCased & _countryNote
+    )
+```
+
 </details>
 
 <details>
 <summary><strong>Map Value</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Map Value", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+VAR O = SELECTEDVALUE ( Outcome[Outcome], "Killed" )
+RETURN
+SWITCH(
+    O,
+    "Killed",    [Total Killed],
+    "Wounded",   [Total Wounded],
+    "Kidnapped", [Total Kidnapped],
+    BLANK()
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Msg — Select one year</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Msg — Select one year", STRING, "DirectQuery to AS - SM_AWSD")
+
+IF(
+    HASONEVALUE('D Date'[Year]),
+    "",
+    "Select one year to enable comparison"
+)
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Nat vs Int Difference</strong></summary>
+
+```DAX
+
+[Selected Outcome Total — Nationals]
+-
+[Selected Outcome Total — Internationals]
+
+```
+
 </details>
 
 <details>
 <summary><strong>Nationality Group</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Nationality Group", STRING, "DirectQuery to AS - SM_AWSD")
+
+DATATABLE(
+    "Group", STRING,
+    {
+        {"Nationals"},
+        {"Internationals"}
+    }
+)
 ```
+
+</details>
+
+<details>
+<summary><strong>Nationals by Outcome (Axis)</strong></summary>
+
+```DAX
+
+VAR o = SELECTEDVALUE('D Outcome Axis'[Outcome])
+RETURN
+SWITCH(
+    o,
+    "Killed",     SUM('F Incident'[Nationals Killed]),
+    "Wounded",    SUM('F Incident'[Nationals Wounded]),
+    "Kidnapped",  SUM('F Incident'[Nationals Kidnapped]),
+    "Detained",   SUM('F Incident'[Nationals Detained])
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Org Victims Total (Pie)</strong></summary>
+
+```DAX
+VAR _org = SELECTEDVALUE('D Org Type'[Org Type]) RETURN SWITCH( _org, "IFRC/ICRC", CALCULATE([Total Victims IFRC ICRC], 
+REMOVEFILTERS(Outcome[Outcome])), "INGO", CALCULATE([Total Victims INGO], 
+REMOVEFILTERS(Outcome[Outcome])), "NNGO", CALCULATE([Total Victims NNGO], 
+REMOVEFILTERS(Outcome[Outcome])), "NRCS", CALCULATE([Total Victims NRCS], 
+REMOVEFILTERS(Outcome[Outcome])), "UN", CALCULATE([Total Victims UN], 
+REMOVEFILTERS(Outcome[Outcome])), "Other", CALCULATE([Total Victims Other Org], 
+REMOVEFILTERS(Outcome[Outcome])), BLANK() )
+```
+
 </details>
 
 <details>
 <summary><strong>Outcome (3-year avg)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Outcome (3-year avg)", DOUBLE, "DirectQuery to AS - SM_AWSD")
+
+VAR IsSingleYear = HASONEVALUE ( 'D Date'[Year] )
+VAR Y            = SELECTEDVALUE ( 'D Date'[Year] )
+VAR FirstY       = [First Data Year]
+
+VAR V1 =
+    CALCULATE (
+        [Selected Outcome Total1],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 1
+    )
+VAR V2 =
+    CALCULATE (
+        [Selected Outcome Total1],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 2
+    )
+VAR V3 =
+    CALCULATE (
+        [Selected Outcome Total1],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 3
+    )
+
+VAR YearsOverZero =
+    IF ( NOT ISBLANK ( V1 ) && V1 > 0, 1, 0 ) +
+    IF ( NOT ISBLANK ( V2 ) && V2 > 0, 1, 0 ) +
+    IF ( NOT ISBLANK ( V3 ) && V3 > 0, 1, 0 )
+
+RETURN
+IF (
+    NOT IsSingleYear
+        || Y <= FirstY + 2
+        || YearsOverZero < 2,
+    BLANK(),
+    DIVIDE ( COALESCE ( V1, 0 ) + COALESCE ( V2, 0 ) + COALESCE ( V3, 0 ), 3 )
+)
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Outcome Comparison Title</strong></summary>
+
+```DAX
+
+/*** YEAR SELECTION (robust, ignores blank Year) ***/
+VAR _yearsSelectedNonBlank =
+    COUNTROWS (
+        FILTER ( ALLSELECTED ( 'D Date'[Year] ), NOT ISBLANK ( 'D Date'[Year] ) )
+    )
+
+VAR _isSingleYear =
+    _yearsSelectedNonBlank = 1
+
+VAR _Y =
+    MAXX (
+        FILTER ( ALLSELECTED ( 'D Date'[Year] ), NOT ISBLANK ( 'D Date'[Year] ) ),
+        'D Date'[Year]
+    )
+
+/*** COUNTRY SELECTION (robust “worldwide”, ignores blank Country) ***/
+VAR _availableCountries =
+    CALCULATETABLE (
+        VALUES ( 'D Location'[Country] ),
+        REMOVEFILTERS ( 'D Location'[Country] ),
+        'D Location'[Country] <> BLANK ()
+    )
+
+VAR _selectedCountries =
+    FILTER ( VALUES ( 'D Location'[Country] ), 'D Location'[Country] <> BLANK () )
+
+VAR _isWorldwide =
+    COUNTROWS ( EXCEPT ( _availableCountries, _selectedCountries ) ) = 0
+
+VAR _CountryLabel =
+    SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR _O =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+/*** Outcome label ***/
+VAR _OutcomeLabel =
+    SWITCH (
+        _O,
+        "Incidents", "Incidents",
+        "All",       "Aid workers affected",
+        "Affected",  "Aid workers affected",
+        "Killed",    "Aid workers killed",
+        "Wounded",   "Aid workers wounded",
+        "Kidnapped", "Aid workers kidnapped",
+        "Detained",  "Aid workers detained",
+        "Affected aid workers"
+    )
+
+VAR _TitlePrefix =
+    SWITCH (
+        TRUE(),
+        _isWorldwide, _OutcomeLabel & " worldwide — ",
+        NOT ISBLANK ( _CountryLabel ), _OutcomeLabel & " in " & _CountryLabel & " — ",
+        _OutcomeLabel & " in selected countries — "
+    )
+
+/*** If not exactly one year, prompt user ***/
+VAR _PromptText =
+    "year comparison"
+
+/*** From here down, only meaningful if single year ***/
+VAR _CurVal =
+    COALESCE ( [Selected Outcome Total1], 0 )
+
+VAR _CurOutcomeIncRows =
+    CALCULATE (
+        COUNTROWS (
+            FILTER ( 'F Incident', COALESCE ( [Selected Outcome Total1], 0 ) > 0 )
+        ),
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = _Y
+    )
+
+VAR _PrevOutcomeIncRows =
+    CALCULATE (
+        COUNTROWS (
+            FILTER ( 'F Incident', COALESCE ( [Selected Outcome Total1], 0 ) > 0 )
+        ),
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = _Y - 1
+    )
+
+VAR _FirstOutcomeIncidentYear =
+    MINX (
+        FILTER (
+            ALL ( 'D Date'[Year] ),
+            NOT ISBLANK ( 'D Date'[Year] )
+                && CALCULATE (
+                    COUNTROWS (
+                        FILTER ( 'F Incident', COALESCE ( [Selected Outcome Total1], 0 ) > 0 )
+                    )
+                ) > 0
+        ),
+        'D Date'[Year]
+    )
+
+VAR _PrevVal =
+    COALESCE (
+        CALCULATE (
+            [Selected Outcome Total1],
+            REMOVEFILTERS ( 'D Date'[Year] ),
+            'D Date'[Year] = _Y - 1
+        ),
+        0
+    )
+
+VAR _YoY_Pct =
+    IF ( _PrevVal > 0, DIVIDE ( _CurVal - _PrevVal, _PrevVal ), BLANK () )
+
+VAR _BracketLabel =
+    SWITCH (
+        TRUE (),
+        _PrevOutcomeIncRows = 0, BLANK (),
+        _PrevVal > 0 && _CurVal > _PrevVal, "(" & UNICHAR ( 9650 ) & " " & FORMAT ( _YoY_Pct, "0%" ) & ")",
+        _PrevVal > 0 && _CurVal < _PrevVal, "(" & UNICHAR ( 9660 ) & " " & FORMAT ( ABS ( _YoY_Pct ), "0%" ) & ")",
+        _PrevVal > 0 && _CurVal = _PrevVal, "(no change)",
+        _PrevVal = 0 && _CurVal > 0, "(" & UNICHAR ( 9650 ) & " new)",
+        _PrevVal = 0 && _CurVal = 0, "(no change)"
+    )
+
+VAR _Avg3 =
+    [Outcome (3-year avg)]
+
+VAR _AvgText =
+    IF (
+        NOT ISBLANK ( _Avg3 ),
+        " and the 3-year average (" & FORMAT ( _Y - 3, "0" ) & "–" & FORMAT ( _Y - 1, "0" ) & ")",
+        BLANK ()
+    )
+
+VAR _NoCurrentText =
+    IF ( _O = "Incidents", " (no incidents recorded)", " (no data recorded)" )
+
+VAR _NoPrevYearText =
+    IF ( _O = "Incidents", " (no previous-year incidents recorded)", " (no previous-year cases recorded)" )
+
+VAR _MainText =
+    SWITCH (
+        TRUE (),
+
+        NOT _isSingleYear,
+            _PromptText,
+
+        _CurOutcomeIncRows = 0,
+            FORMAT ( _Y, "0" ) & _NoCurrentText,
+
+        _Y = _FirstOutcomeIncidentYear,
+            FORMAT ( _Y, "0" ) & " (first year recorded)",
+
+        _PrevOutcomeIncRows = 0,
+            FORMAT ( _Y, "0" ) & _NoPrevYearText,
+
+        TRUE,
+            FORMAT ( _Y, "0" )
+                & " compared with " & FORMAT ( _Y - 1, "0" )
+                & IF ( NOT ISBLANK ( _BracketLabel ), " " & _BracketLabel, BLANK () )
+                & _AvgText
+    )
+
+RETURN
+    _TitlePrefix & _MainText
+```
+
+</details>
+
+<details>
+<summary><strong>Outcome Label (Title)</strong></summary>
+
+```DAX
+
+VAR _o = SELECTEDVALUE(Outcome[Outcome], "All")
+RETURN
+SWITCH (
+    _o,
+    "All", "Aid workers attacked",
+    "Killed", "Aid workers killed",
+    "Wounded", "Aid workers wounded",
+    "Kidnapped", "Aid workers kidnapped",
+    "Detained", "Aid workers detained",
+    "Aid workers attacked"
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Outcome Phrase (Title)</strong></summary>
+
+```DAX
+
+VAR _o = SELECTEDVALUE(Outcome[Outcome], "All")
+RETURN
+SWITCH(
+    _o,
+    "All", "aid workers affected",
+    "Killed", "aid workers killed",
+    "Wounded", "aid workers wounded",
+    "Kidnapped", "aid workers kidnapped",
+    "Detained", "aid workers detained",
+    "aid workers affected"
+)
+```
+
 </details>
 
 <details>
 <summary><strong>Prev Year</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Prev Year", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+[Selected Year] - 1
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Previous Year (Outcome)</strong></summary>
+
+```DAX
+
+VAR Y = SELECTEDVALUE('D Date'[Year])
+RETURN
+IF(
+    NOT ISBLANK(Y),
+    CALCULATE(
+        [Selected Outcome Total1],
+        REMOVEFILTERS('D Date'[Year]),
+        'D Date'[Year] = Y - 1
+    )
+)
+
+```
+
 </details>
 
 <details>
 <summary><strong>Selected Attack Dimension</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Attack Dimension", STRING, "DirectQuery to AS - SM_AWSD")
+
+SELECTEDVALUE(
+    'Attack Dimension Parameter'[Attack Dimension Parameter Fields]
+)
 ```
+
 </details>
 
 <details>
 <summary><strong>Selected Category</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Category", STRING, "DirectQuery to AS - SM_AWSD")
+
+SWITCH(
+    TRUE(),
+    ISINSCOPE('D Source'[Source]) && HASONEVALUE('D Source'[Source]), "Source",
+    ISINSCOPE('D Verification Status'[Verification Status]) && HASONEVALUE('D Verification Status'[Verification Status]), "Verification Status",
+    ISINSCOPE('D Perpetrator Type'[Perpetrator Type]) && HASONEVALUE('D Perpetrator Type'[Perpetrator Type]), "Perpetrator Type",
+    ISINSCOPE('D Incident Setting'[Incident Setting]) && HASONEVALUE('D Incident Setting'[Incident Setting]), "Incident Setting",
+    ISINSCOPE('D Attack Means'[Attack Means]) && HASONEVALUE('D Attack Means'[Attack Means]), "Attack Means",
+    ISINSCOPE('D Motive'[Motive]) && HASONEVALUE('D Motive'[Motive]), "Motive",
+    ISINSCOPE('D Attack Context'[Attack Context]) && HASONEVALUE('D Attack Context'[Attack Context]), "Attack Context",
+    BLANK()
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Selected Definition</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Definition", STRING, "DirectQuery to AS - SM_AWSD")
+
+SWITCH(
+    TRUE(),
+
+    ISINSCOPE('D Source'[Source]) && HASONEVALUE('D Source'[Source]),
+        LOOKUPVALUE(
+            Source_Definitions[Definition],
+            Source_Definitions[Source],
+            SELECTEDVALUE('D Source'[Source])
+        ),
+
+    ISINSCOPE('D Verification Status'[Verification Status]) && HASONEVALUE('D Verification Status'[Verification Status]),
+        LOOKUPVALUE(
+            VerificationStatus_Definitions[Definition],
+            VerificationStatus_Definitions[Verification Status],
+            SELECTEDVALUE('D Verification Status'[Verification Status])
+        ),
+
+    ISINSCOPE('D Perpetrator Type'[Perpetrator Type]) && HASONEVALUE('D Perpetrator Type'[Perpetrator Type]),
+        LOOKUPVALUE(
+            PerpetratorType_Definitions[Definition],
+            PerpetratorType_Definitions[Perpetrator Type],
+            SELECTEDVALUE('D Perpetrator Type'[Perpetrator Type])
+        ),
+
+    ISINSCOPE('D Incident Setting'[Incident Setting]) && HASONEVALUE('D Incident Setting'[Incident Setting]),
+        LOOKUPVALUE(
+            IncidentSetting_Definitions[Definition],
+            IncidentSetting_Definitions[Incident Setting],
+            SELECTEDVALUE('D Incident Setting'[Incident Setting])
+        ),
+
+    ISINSCOPE('D Attack Means'[Attack Means]) && HASONEVALUE('D Attack Means'[Attack Means]),
+        LOOKUPVALUE(
+            AttackMeans_Definitions[Definition],
+            AttackMeans_Definitions[Attack Means],
+            SELECTEDVALUE('D Attack Means'[Attack Means])
+        ),
+
+    ISINSCOPE('D Motive'[Motive]) && HASONEVALUE('D Motive'[Motive]),
+        LOOKUPVALUE(
+            Motive_Definitions[Definition],
+            Motive_Definitions[Motive],
+            SELECTEDVALUE('D Motive'[Motive])
+        ),
+
+    ISINSCOPE('D Attack Context'[Attack Context]) && HASONEVALUE('D Attack Context'[Attack Context]),
+        LOOKUPVALUE(
+            AttackContext_Definitions[Definition],
+            AttackContext_Definitions[Attack Context],
+            SELECTEDVALUE('D Attack Context'[Attack Context])
+        ),
+
+    BLANK()
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Selected Dictionary Definition</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Dictionary Definition", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR _FieldKey = SELECTEDVALUE(DictionaryFields[FieldKey])
+RETURN
+CALCULATE(
+    MAX(DictionaryDetails[Definition]),
+    DictionaryDetails[FieldKey] = _FieldKey
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Selected Dictionary Field</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Dictionary Field", STRING, "DirectQuery to AS - SM_AWSD")
+
+SELECTEDVALUE(DictionaryFields[FieldName], "Select a field")
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Selected Outcome Color</strong></summary>
+
+```DAX
+
+SELECTEDVALUE(Outcome[Outcome Color], "#333333")
+
+```
+
 </details>
 
 <details>
 <summary><strong>Selected Outcome Total</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Outcome Total", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+VAR O = SELECTEDVALUE ( Outcome[Outcome], "Killed" )
+RETURN
+SWITCH(
+    O,
+    "Killed",    [Total Killed],
+    "Wounded",   [Total Wounded],
+    "Kidnapped", [Total Kidnapped],
+    BLANK()
+)
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Selected Outcome Total — Internationals</strong></summary>
+
+```DAX
+
+VAR o = SELECTEDVALUE(Outcome[Outcome], "All")
+RETURN
+SWITCH(
+    o,
+    "Killed",     SUM('F Incident'[Internationals Killed]),
+    "Wounded",    SUM('F Incident'[Internationals Wounded]),
+    "Kidnapped",  SUM('F Incident'[Internationals Kidnapped]),
+    "Detained",   SUM('F Incident'[Internationals Detained]),
+    -- All:
+    SUM('F Incident'[Internationals Killed])
+    + SUM('F Incident'[Internationals Wounded])
+    + SUM('F Incident'[Internationals Kidnapped])
+    + SUM('F Incident'[Internationals Detained])
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Selected Outcome Total — Internationals (Plot)</strong></summary>
+
+```DAX
+
+VAR o =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+VAR v =
+    SWITCH (
+        o,
+        "Killed",     SUM ( 'F Incident'[Internationals Killed] ),
+        "Wounded",    SUM ( 'F Incident'[Internationals Wounded] ),
+        "Kidnapped",  SUM ( 'F Incident'[Internationals Kidnapped] ),
+        "Detained",   SUM ( 'F Incident'[Internationals Detained] ),
+        SUM ( 'F Incident'[Internationals Killed] )
+            + SUM ( 'F Incident'[Internationals Wounded] )
+            + SUM ( 'F Incident'[Internationals Kidnapped] )
+            + SUM ( 'F Incident'[Internationals Detained] )
+    )
+RETURN
+    IF ( v = 0 || ISBLANK ( v ), BLANK (), v )
+```
+
+</details>
+
+<details>
+<summary><strong>Selected Outcome Total — Nat+Int</strong></summary>
+
+```DAX
+
+[Selected Outcome Total — Nationals] + [Selected Outcome Total — Internationals]
+
+```
+
+</details>
+
+<details>
+<summary><strong>Selected Outcome Total — Nat+Int1</strong></summary>
+
+```DAX
+
+COALESCE ( [Selected Outcome Total — Nationals], 0 )
++ COALESCE ( [Selected Outcome Total — Internationals], 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Selected Outcome Total — Nationals</strong></summary>
+
+```DAX
+
+VAR o = SELECTEDVALUE(Outcome[Outcome], "All")
+RETURN
+SWITCH(
+    o,
+    "Killed",     SUM('F Incident'[Nationals Killed]),
+    "Wounded",    SUM('F Incident'[Nationals Wounded]),
+    "Kidnapped",  SUM('F Incident'[Nationals Kidnapped]),
+    "Detained",   SUM('F Incident'[Nationals Detained]),
+    -- All:
+    SUM('F Incident'[Nationals Killed])
+    + SUM('F Incident'[Nationals Wounded])
+    + SUM('F Incident'[Nationals Kidnapped])
+    + SUM('F Incident'[Nationals Detained])
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Selected Outcome Total — Nationals (Plot)</strong></summary>
+
+```DAX
+
+VAR o =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+VAR v =
+    SWITCH (
+        o,
+        "Killed",     SUM ( 'F Incident'[Nationals Killed] ),
+        "Wounded",    SUM ( 'F Incident'[Nationals Wounded] ),
+        "Kidnapped",  SUM ( 'F Incident'[Nationals Kidnapped] ),
+        "Detained",   SUM ( 'F Incident'[Nationals Detained] ),
+        SUM ( 'F Incident'[Nationals Killed] )
+            + SUM ( 'F Incident'[Nationals Wounded] )
+            + SUM ( 'F Incident'[Nationals Kidnapped] )
+            + SUM ( 'F Incident'[Nationals Detained] )
+    )
+RETURN
+    IF ( v = 0 || ISBLANK ( v ), BLANK (), v )
+```
+
 </details>
 
 <details>
 <summary><strong>Selected Outcome Total (Gender)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Outcome Total (Gender)", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+SWITCH(
+    SELECTEDVALUE('D Gender'[Gender]),
+    "Female", [Gender Female Total],
+    "Male", [Gender Male Total],
+    "Unknown", [Gender Unknown Total]
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Selected Outcome Total1</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Outcome Total1", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+SWITCH(
+    SELECTEDVALUE(Outcome[Outcome], "All"),
+    "Incidents", COALESCE([Total Incidents], 0),
+    "Killed",    COALESCE([Total Killed], 0),
+    "Wounded",   COALESCE([Total Wounded], 0),
+    "Kidnapped", COALESCE([Total Kidnapped], 0),
+    "Detained",  COALESCE([Total Detained], 0),
+    "All",
+        COALESCE([Total Killed], 0)
+        + COALESCE([Total Wounded], 0)
+        + COALESCE([Total Kidnapped], 0)
+        + COALESCE([Total Detained], 0),
+    BLANK()
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Selected Term</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Term", STRING, "DirectQuery to AS - SM_AWSD")
+
+SWITCH(
+    TRUE(),
+    ISINSCOPE('D Source'[Source]) && HASONEVALUE('D Source'[Source]),
+        SELECTEDVALUE('D Source'[Source]),
+
+    ISINSCOPE('D Verification Status'[Verification Status]) && HASONEVALUE('D Verification Status'[Verification Status]),
+        SELECTEDVALUE('D Verification Status'[Verification Status]),
+
+    ISINSCOPE('D Perpetrator Type'[Perpetrator Type]) && HASONEVALUE('D Perpetrator Type'[Perpetrator Type]),
+        SELECTEDVALUE('D Perpetrator Type'[Perpetrator Type]),
+
+    ISINSCOPE('D Incident Setting'[Incident Setting]) && HASONEVALUE('D Incident Setting'[Incident Setting]),
+        SELECTEDVALUE('D Incident Setting'[Incident Setting]),
+
+    ISINSCOPE('D Attack Means'[Attack Means]) && HASONEVALUE('D Attack Means'[Attack Means]),
+        SELECTEDVALUE('D Attack Means'[Attack Means]),
+
+    ISINSCOPE('D Motive'[Motive]) && HASONEVALUE('D Motive'[Motive]),
+        SELECTEDVALUE('D Motive'[Motive]),
+
+    ISINSCOPE('D Attack Context'[Attack Context]) && HASONEVALUE('D Attack Context'[Attack Context]),
+        SELECTEDVALUE('D Attack Context'[Attack Context]),
+
+    BLANK()
+)
+
 ```
+
 </details>
 
 <details>
 <summary><strong>Selected Year</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Selected Year", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+COALESCE( SELECTEDVALUE('D Date'[Year]), MAX('D Date'[Year]) )
 ```
+
+</details>
+
+<details>
+<summary><strong>Selected Year (Outcome)</strong></summary>
+
+```DAX
+
+VAR Y = SELECTEDVALUE('D Date'[Year])
+RETURN
+IF(
+    NOT ISBLANK(Y),
+    CALCULATE(
+        [Selected Outcome Total1],
+        KEEPFILTERS('D Date'[Year] = Y)
+    )
+)
+
+```
+
 </details>
 
 <details>
 <summary><strong>Show Comparison</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Show Comparison", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+IF( HASONEVALUE('D Date'[Year]), 1, 0 )
 ```
+
 </details>
 
 <details>
 <summary><strong>Show Country Message</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Show Country Message", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+IF( ISFILTERED('D Location'[Country]), 1, 0 )
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Show Top 3 Countries</strong></summary>
+
+```DAX
+
+IF(
+    [Country Rank (Selected Outcome)] <= 3,
+    1,
+    0
+)
+
+```
+
 </details>
 
 <details>
 <summary><strong>Show Top Countries Chart</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Show Top Countries Chart", INTEGER, "DirectQuery to AS - SM_AWSD")
+
+IF( [All Countries Selected] = 1, 1, 0 )
 ```
+
+</details>
+
+<details>
+<summary><strong>Show Top Countries Visual</strong></summary>
+
+```DAX
+
+VAR SelCountries = COUNTROWS( ALLSELECTED('D Location'[Country]) )
+VAR AllCountries = COUNTROWS( ALL('D Location'[Country]) )
+RETURN
+IF( SelCountries = 0 || SelCountries = AllCountries, 1, 0 )
+
+```
+
 </details>
 
 <details>
 <summary><strong>SortValue_UnknownLast_AttackPage</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("SortValue_UnknownLast_AttackPage", DOUBLE, "DirectQuery to AS - SM_AWSD")
+
+VAR Label =
+    COALESCE(
+        SELECTEDVALUE('D Attack Means'[Attack Means]),
+        SELECTEDVALUE('D Attack Context'[Attack Context]),
+        SELECTEDVALUE('DimPerpetratorGroup'[Perpetrator Group]),
+        SELECTEDVALUE('D Perpetrator Type'[Perpetrator Type]),
+        SELECTEDVALUE('D Incident Setting'[Incident Setting]),
+        SELECTEDVALUE('D Motive'[Motive])
+    )
+VAR IsUnknown =
+    Label = "Unknown"
+RETURN
+IF( IsUnknown, -1e15, [Selected Outcome Total1] )
+
 ```
+
+</details>
+
+<details>
+<summary><strong>Title — <Visual Name></strong></summary>
+
+```DAX
+
+VAR V =
+    CALCULATE(
+        COALESCE( SUM('F Incident'[<ReplaceWithColumn>]), 0 )
+    )
+
+VAR C =
+    SELECTEDVALUE('D Location'[Country])
+
+VAR CountryText =
+    IF(
+        HASONEVALUE('D Location'[Country]),
+        " in " & C,
+        " globally"
+    )
+
+VAR MinY = MIN('D Date'[Year])
+VAR MaxY = MAX('D Date'[Year])
+VAR OneYear = HASONEVALUE('D Date'[Year])
+
+VAR YearText =
+    IF(
+        ISFILTERED('D Date'[Year]),
+        " in " &
+        IF(
+            OneYear,
+            FORMAT(MinY,"0"),
+            FORMAT(MinY,"0") & "–" & FORMAT(MaxY,"0")
+        ),
+        " across all years"
+    )
+
+RETURN
+IF(
+    V = 0,
+    "No incidents recorded" & CountryText & YearText,
+    "<Base title text>" & CountryText & YearText
+)
+
+```
+
 </details>
 
 <details>
 <summary><strong>Title — Attack Dimension (Dynamic)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Title — Attack Dimension (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR DimName =
+    SELECTEDVALUE ( 'Attack Dimension Parameter'[Attack Dimension Parameter Order] )
+
+VAR DimText =
+    SWITCH (
+        DimName,
+        0, "Attack means",
+        1, "Attack context",
+        2, "Incident setting",
+        "Attack dimension"
+    )
+
+VAR V =
+    CALCULATE (
+        COALESCE ( [Selected Outcome Total1], 0 ),
+        REMOVEFILTERS ( 'Attack Dimension Parameter' )
+    )
+
+VAR C = SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR MinY = MIN ( 'D Date'[Year] )
+VAR MaxY = MAX ( 'D Date'[Year] )
+VAR OneYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR CountryText =
+    IF (
+        HASONEVALUE ( 'D Location'[Country] ),
+        " in " & C,
+        " globally"
+    )
+
+VAR YearText =
+    IF (
+        ISFILTERED ( 'D Date'[Year] ),
+        " in "
+            & IF (
+                OneYear,
+                FORMAT ( MinY, "0" ),
+                FORMAT ( MinY, "0" ) & "-" & FORMAT ( MaxY, "0" )
+            ),
+        " across all reported years"
+    )
+
+VAR MetricSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR MetricPhrase =
+    SWITCH (
+        MetricSelected,
+        "Incidents", "incidents",
+        "All", "affected aid workers",
+        "Killed", "aid workers killed",
+        "Wounded", "aid workers wounded",
+        "Kidnapped", "aid workers kidnapped",
+        "Detained", "aid workers detained",
+        "affected aid workers"
+    )
+
+VAR TitleText =
+    DimText & " breakdown - " & MetricPhrase & CountryText & YearText
+
+VAR NoDataText =
+    DimText & " breakdown - no " & MetricPhrase & CountryText & YearText
+
+RETURN
+    IF ( V > 0, TitleText, NoDataText )
 ```
+
+</details>
+
+<details>
+<summary><strong>Title — Gender Distribution</strong></summary>
+
+```DAX
+
+VAR V =
+    COALESCE (
+        SUM ( 'F Incident'[Gender Female] )
+            + SUM ( 'F Incident'[Gender Male] )
+            + SUM ( 'F Incident'[Gender Unknown] ),
+        0
+    )
+
+VAR C = SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR CountryText =
+    IF (
+        HASONEVALUE ( 'D Location'[Country] ),
+        " in " & C,
+        " worldwide"
+    )
+
+VAR MinY = MIN ( 'D Date'[Year] )
+VAR MaxY = MAX ( 'D Date'[Year] )
+VAR OneYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR YearText =
+    IF (
+        ISFILTERED ( 'D Date'[Year] ),
+        " in "
+            & IF (
+                OneYear,
+                FORMAT ( MinY, "0" ),
+                FORMAT ( MinY, "0" ) & "–" & FORMAT ( MaxY, "0" )
+            ),
+        " across all reported years"
+    )
+
+VAR OutcomeSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR AllOutcomesNote =
+    IF (
+        OutcomeSelected = "All",
+        "",
+        ""
+    )
+
+RETURN
+IF (
+    V = 0,
+    "No incidents recorded" & CountryText & YearText & AllOutcomesNote,
+    "Gender distribution of aid workers affected" & CountryText & YearText & AllOutcomesNote)
+```
+
+</details>
+
+<details>
+<summary><strong>Title — Heatmap (Dynamic)</strong></summary>
+
+```DAX
+
+VAR DimName =
+    SELECTEDVALUE (
+        'Perpetrator Dimension Parameter'[Perpetrator Dimension Parameter Order]
+    )
+
+VAR DimText =
+    SWITCH (
+        DimName,
+        0, "perpetrator group",
+        1, "motive",
+        "Perpetrator"
+    )
+
+VAR MetricSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR MetricPhrase =
+    SWITCH (
+        MetricSelected,
+        "Incidents", "incidents",
+        "All", "affected aid workers",
+        "Killed", "aid workers killed",
+        "Wounded", "aid workers wounded",
+        "Kidnapped", "aid workers kidnapped",
+        "Detained", "aid workers detained",
+        "affected aid workers"
+    )
+
+VAR MinY = MIN ( 'D Date'[Year] )
+VAR MaxY = MAX ( 'D Date'[Year] )
+VAR OneYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR YearText =
+    IF (
+        ISFILTERED ( 'D Date'[Year] ),
+        " in "
+            & IF (
+                OneYear,
+                FORMAT ( MinY, "0" ),
+                FORMAT ( MinY, "0" ) & "–" & FORMAT ( MaxY, "0" )
+            ),
+        " across all reported years"
+    )
+
+VAR CountryNote =
+    IF (
+        ISFILTERED ( 'D Location'[Country] ),
+        " (not affected by country selection)",
+        ""
+    )
+
+VAR V =
+    CALCULATE (
+        COALESCE ( [Selected Outcome Total1], 0 ),
+        REMOVEFILTERS ( 'Perpetrator Dimension Parameter' ),
+        REMOVEFILTERS ( 'D Location'[Country] )
+    )
+
+VAR TitleText =
+    "Top countries by " & MetricPhrase
+        & " - " & DimText & " breakdown globally"
+        & YearText
+        & CountryNote
+
+VAR NoDataText =
+    "Top countries by " & MetricPhrase
+        & " - no " & MetricPhrase & " globally"
+        & YearText
+        & CountryNote
+
+RETURN
+    IF ( V > 0, TitleText, NoDataText )
+```
+
 </details>
 
 <details>
 <summary><strong>Title — Motive (Dynamic)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Title — Motive (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR V =
+    COALESCE ( [Selected Outcome Total1], 0 )
+
+VAR C = SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR MinY = MIN ( 'D Date'[Year] )
+VAR MaxY = MAX ( 'D Date'[Year] )
+VAR OneYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR CountryText =
+    IF (
+        HASONEVALUE ( 'D Location'[Country] ),
+        " in " & C,
+        " globally"
+    )
+
+VAR YearText =
+    IF (
+        ISFILTERED ( 'D Date'[Year] ),
+        " in "
+            & IF (
+                OneYear,
+                FORMAT ( MinY, "0" ),
+                FORMAT ( MinY, "0" ) & "–" & FORMAT ( MaxY, "0" )
+            ),
+        " across all reported years"
+    )
+
+VAR MetricSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR MetricPhrase =
+    SWITCH (
+        MetricSelected,
+        "Incidents", "incidents",
+        "All", "affected aid workers",
+        "Killed", "aid workers killed",
+        "Wounded", "aid workers wounded",
+        "Kidnapped", "aid workers kidnapped",
+        "Detained", "aid workers detained",
+        "affected aid workers"
+    )
+
+VAR TitleText =
+    "Motive breakdown - " & MetricPhrase & CountryText & YearText
+
+VAR NoDataText =
+    "Motive breakdown - no " & MetricPhrase & CountryText & YearText
+
+RETURN
+    IF ( V > 0, TitleText, NoDataText )
 ```
+
+</details>
+
+<details>
+<summary><strong>Title — Nat vs Int by Outcome</strong></summary>
+
+```DAX
+
+VAR V =
+    COALESCE (
+        SUM ( 'F Incident'[Nationals Killed] )
+            + SUM ( 'F Incident'[Nationals Wounded] )
+            + SUM ( 'F Incident'[Nationals Kidnapped] )
+            + SUM ( 'F Incident'[Nationals Detained] )
+            + SUM ( 'F Incident'[Internationals Killed] )
+            + SUM ( 'F Incident'[Internationals Wounded] )
+            + SUM ( 'F Incident'[Internationals Kidnapped] )
+            + SUM ( 'F Incident'[Internationals Detained] ),
+        0
+    )
+
+VAR C = SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR CountryText =
+    IF (
+        HASONEVALUE ( 'D Location'[Country] ),
+        " in " & C,
+        " worldwide"
+    )
+
+VAR MinY = MIN ( 'D Date'[Year] )
+VAR MaxY = MAX ( 'D Date'[Year] )
+VAR OneYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR YearText =
+    IF (
+        ISFILTERED ( 'D Date'[Year] ),
+        " in "
+            & IF (
+                OneYear,
+                FORMAT ( MinY, "0" ),
+                FORMAT ( MinY, "0" ) & "–" & FORMAT ( MaxY, "0" )
+            ),
+        " across all reported years"
+    )
+
+VAR OutcomeSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR AllOutcomesNote =
+    IF ( OutcomeSelected = "All", "", "" )
+
+RETURN
+IF (
+    V = 0,
+    "No incidents recorded" & CountryText & YearText & AllOutcomesNote,
+    "Nationality group of aid workers by attack outcome"
+        & CountryText
+        & YearText
+        & AllOutcomesNote
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Title — Nat vs Int Trend</strong></summary>
+
+```DAX
+
+VAR V =
+    CALCULATE (
+        COALESCE ( [Selected Outcome Total1], 0 ),
+        REMOVEFILTERS ( 'D Date'[Year] )
+    )
+
+VAR C =
+    SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR CountryText =
+    IF (
+        HASONEVALUE ( 'D Location'[Country] ),
+        " in " & C,
+        " worldwide"
+    )
+
+VAR OutcomeSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR OutcomeWord =
+    SWITCH (
+        OutcomeSelected,
+        "All", "aid workers affected",
+        "Killed", "aid workers killed",
+        "Wounded", "aid workers wounded",
+        "Kidnapped", "aid workers kidnapped",
+        "Detained", "aid workers detained",
+        "aid workers affected"
+    )
+
+VAR OutcomeVerbPhrase =
+    SUBSTITUTE ( OutcomeWord, "aid workers ", "" )
+
+VAR AllOutcomesNote =
+    IF (
+        OutcomeSelected = "All",
+        " - all attack outcomes",
+        ""
+    )
+
+VAR NoIncidentsNote =
+    IF (
+        V = 0,
+        " - no incidents recorded",
+        ""
+    )
+
+VAR YearFiltered =
+    ISFILTERED ( 'D Date'[Year] )
+        || ISCROSSFILTERED ( 'D Date'[Year] )
+
+VAR YearNote =
+    IF (
+        YearFiltered,
+        " - not impacted by year selection",
+        ""
+    )
+
+VAR BaseTitle =
+    "Nationality group of aid workers "
+        & OutcomeVerbPhrase
+        & CountryText
+        & " across all reported years"
+        & AllOutcomesNote
+
+RETURN
+    BaseTitle & " (trend)" & NoIncidentsNote & YearNote
+```
+
+</details>
+
+<details>
+<summary><strong>Title — Nationals vs Internationals</strong></summary>
+
+```DAX
+
+VAR V =
+    COALESCE ( [Selected Outcome Total1], 0 )
+
+VAR C = SELECTEDVALUE ( 'D Location'[Country] )
+VAR MinY = MIN ( 'D Date'[Year] )
+VAR MaxY = MAX ( 'D Date'[Year] )
+VAR OneYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR CountryText =
+    IF ( HASONEVALUE ( 'D Location'[Country] ), " in " & C, " worldwide" )
+
+VAR YearText =
+    IF (
+        ISFILTERED ( 'D Date'[Year] ),
+        " in "
+            & IF (
+                OneYear,
+                FORMAT ( MinY, "0" ),
+                FORMAT ( MinY, "0" ) & "–" & FORMAT ( MaxY, "0" )
+            ),
+        " across all reported years"
+    )
+
+VAR OutcomeSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR OutcomeWord =
+    SWITCH (
+        OutcomeSelected,
+        "All", "aid workers affected",
+        "Killed", "aid workers killed",
+        "Wounded", "aid workers wounded",
+        "Kidnapped", "aid workers kidnapped",
+        "Detained", "aid workers detained",
+        "aid workers affected"
+    )
+
+VAR OutcomeVerbPhrase =
+    SUBSTITUTE ( OutcomeWord, "aid workers ", "" )
+
+VAR AllOutcomesNote =
+    IF ( OutcomeSelected = "All", " - all attack outcomes", "" )
+
+VAR NoIncidentsNote =
+    IF ( V = 0, " - no incidents recorded", "" )
+
+VAR BaseTitle =
+    "Nationality group of aid workers "
+        & OutcomeVerbPhrase
+        & CountryText
+        & YearText
+        & AllOutcomesNote
+
+RETURN
+    BaseTitle & " (summary)" & NoIncidentsNote
+```
+
 </details>
 
 <details>
 <summary><strong>Title — Organisation Type Distribution</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Title — Organisation Type Distribution", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR V =
+    COALESCE (
+        CALCULATE (
+            [Total Victims IFRC ICRC]
+                + [Total Victims INGO]
+                + [Total Victims NNGO]
+                + [Total Victims NRCS]
+                + [Total Victims Other Org],
+            REMOVEFILTERS ( Outcome[Outcome] )
+        ),
+        0
+    )
+
+VAR C = SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR CountryText =
+    IF (
+        HASONEVALUE ( 'D Location'[Country] ),
+        " in " & C,
+        " worldwide"
+    )
+
+VAR MinY = MIN ( 'D Date'[Year] )
+VAR MaxY = MAX ( 'D Date'[Year] )
+VAR OneYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR YearText =
+    IF (
+        ISFILTERED ( 'D Date'[Year] ),
+        " in "
+            & IF (
+                OneYear,
+                FORMAT ( MinY, "0" ),
+                FORMAT ( MinY, "0" ) & "–" & FORMAT ( MaxY, "0" )
+            ),
+        " across all reported years"
+    )
+
+VAR OutcomeSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR AllOutcomesNote =
+    IF ( OutcomeSelected = "All", "", "" )
+
+RETURN
+IF (
+    V = 0,
+    "No incidents recorded" & CountryText & YearText & AllOutcomesNote,
+    "Organisation type of aid workers affected" & CountryText & YearText & AllOutcomesNote)
 ```
+
 </details>
 
 <details>
 <summary><strong>Title — Perpetrator Type (Dynamic)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Title — Perpetrator Type (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR V =
+    COALESCE ( [Selected Outcome Total1], 0 )
+
+VAR C = SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR MinY = MIN ( 'D Date'[Year] )
+VAR MaxY = MAX ( 'D Date'[Year] )
+VAR OneYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR CountryText =
+    IF (
+        HASONEVALUE ( 'D Location'[Country] ),
+        " in " & C,
+        " globally"
+    )
+
+VAR YearText =
+    IF (
+        ISFILTERED ( 'D Date'[Year] ),
+        " in "
+            & IF (
+                OneYear,
+                FORMAT ( MinY, "0" ),
+                FORMAT ( MinY, "0" ) & "–" & FORMAT ( MaxY, "0" )
+            ),
+        " across all reported years"
+    )
+
+VAR MetricSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR MetricPhrase =
+    SWITCH (
+        MetricSelected,
+        "Incidents", "incidents",
+        "All", "affected aid workers",
+        "Killed", "aid workers killed",
+        "Wounded", "aid workers wounded",
+        "Kidnapped", "aid workers kidnapped",
+        "Detained", "aid workers detained",
+        "affected aid workers"
+    )
+
+VAR TitleText =
+    "Perpetrator type breakdown - " & MetricPhrase & CountryText & YearText
+
+VAR NoDataText =
+    "Perpetrator type breakdown - no " & MetricPhrase & CountryText & YearText
+
+RETURN
+    IF ( V > 0, TitleText, NoDataText )
 ```
+
 </details>
 
 <details>
-<summary><strong>Tooltip - Organisation TermDefinition</strong></summary>
+<summary><strong>Title — Top Countries (Nat vs Int)</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Tooltip - Organisation TermDefinition", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR YearText =
+    IF (
+        HASONEVALUE ( 'D Date'[Year] ),
+        SELECTEDVALUE ( 'D Date'[Year] ),
+        "all reported years"
+    )
+
+VAR C =
+    SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR CountryText =
+    IF (
+        HASONEVALUE ( 'D Location'[Country] ),
+        " in " & C,
+        ""
+    )
+
+VAR OutcomeSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR OutcomeNoun =
+    SWITCH (
+        OutcomeSelected,
+        "All", "attacks",
+        "Killed", "killings",
+        "Wounded", "woundings",
+        "Kidnapped", "kidnappings",
+        "Detained", "detentions",
+        "attacks"
+    )
+
+VAR AllOutcomesNote =
+    IF ( OutcomeSelected = "All", " (all outcomes)", "" )
+
+RETURN
+    "Top countries by " &
+    OutcomeNoun &
+    " - nationality group of aid workers affected" &
+    CountryText &
+    " in " & YearText &
+    AllOutcomesNote
 ```
-</details>
 
-<details>
-<summary><strong>Tooltip - Perpetrator Definition</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Tooltip - Perpetrator Definition", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Tooltip - Perpetrator Term + Definition</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Tooltip - Perpetrator Term + Definition", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Tooltip - PerpParam Active</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Tooltip - PerpParam Active", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Tooltip - PerpParam TermDefinition</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Tooltip - PerpParam TermDefinition", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Tooltip Definition</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Tooltip Definition", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Top 10 Share %</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Top 10 Share %", DOUBLE, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Top 5 Countries Group</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Top 5 Countries Group", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Top Countries Title (Kidnapped)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Top Countries Title (Kidnapped)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Top Countries Title (Killed)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Top Countries Title (Killed)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Top Countries Title (Wounded)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Top Countries Title (Wounded)", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Top Countries Value (Display)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Top Countries Value (Display)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>TopN + Other Value</strong></summary>
-
-```DAX
-EXTERNALMEASURE("TopN + Other Value", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>TopN Country Name</strong></summary>
-
-```DAX
-EXTERNALMEASURE("TopN Country Name", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>TopN Cumulative %</strong></summary>
-
-```DAX
-EXTERNALMEASURE("TopN Cumulative %", DOUBLE, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total affected</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total affected", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Countries (Year + Country only)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Countries (Year + Country only)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Detained</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Detained", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Detained (2025+)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Detained (2025+)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Detained (pre-2025)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Detained (pre-2025)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Incidents</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Incidents", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Internationals Detained</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Internationals Detained", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Internationals Kidnapped</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Internationals Kidnapped", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Internationals Killed</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Internationals Killed", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Internationals Wounded</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Internationals Wounded", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Kidnapped</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Kidnapped", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Kidnapped (Top Countries Display))</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Kidnapped (Top Countries Display))", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Killed</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Killed", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Killed (Top Countries Display)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Killed (Top Countries Display)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Nationals Detained</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Nationals Detained", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Nationals Kidnapped</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Nationals Kidnapped", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Nationals Killed</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Nationals Killed", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Nationals Wounded</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Nationals Wounded", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims Females</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims Females", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims Gender Unknown</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims Gender Unknown", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims IFRC ICRC</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims IFRC ICRC", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims INGO</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims INGO", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims Males</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims Males", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims NNGO</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims NNGO", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims NRCS</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims NRCS", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims Other Org</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims Other Org", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Victims UN</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Victims UN", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Wounded</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Wounded", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Total Wounded (Top Countries Display)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Total Wounded (Top Countries Display)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Update Message</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Update Message", STRING, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Wounded (3-year avg)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Wounded (3-year avg)", DOUBLE, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Wounded (line)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Wounded (line)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Wounded (Previous Year)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Wounded (Previous Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Wounded (Selected Year)</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Wounded (Selected Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
-```
-</details>
-
-<details>
-<summary><strong>Wounded Comparison Title</strong></summary>
-
-```DAX
-EXTERNALMEASURE("Wounded Comparison Title", STRING, "DirectQuery to AS - SM_AWSD")
-```
 </details>
 
 <details>
 <summary><strong>Tooltip - Motive TermDefinition</strong></summary>
 
 ```DAX
-EXTERNALMEASURE("Tooltip - Motive TermDefinition", STRING, "DirectQuery to AS - SM_AWSD")
+
+VAR _Motive =
+    SELECTEDVALUE ( 'D Motive'[Motive] )   -- change table name if your funnel uses a different one
+RETURN
+LOOKUPVALUE(
+    Motive_Definitions[TermDefinition],
+    Motive_Definitions[Motive], _Motive
+)
 ```
+
+</details>
+
+<details>
+<summary><strong>Tooltip - Organisation TermDefinition</strong></summary>
+
+```DAX
+
+VAR _Org =
+    SELECTEDVALUE ( 'D Org Type'[Org Type])   -- adjust table/column name if needed
+RETURN
+LOOKUPVALUE(
+    OrganisationAbbreviation_Definitions[TermDefinition],
+    OrganisationAbbreviation_Definitions[Abbreviation], _Org
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Tooltip - Perpetrator Definition</strong></summary>
+
+```DAX
+
+VAR _Type =
+    SELECTEDVALUE ( 'D Perpetrator Type'[Perpetrator Type] )
+
+VAR _Group =
+    SELECTEDVALUE ( 'DimPerpetratorGroup'[Perpetrator Group] )
+
+RETURN
+IF(
+    NOT ISBLANK ( _Type ),
+    LOOKUPVALUE(
+        PerpetratorType_Definitions[Definition],
+        PerpetratorType_Definitions[Perpetrator Type], _Type
+    ),
+    LOOKUPVALUE(
+        PerpetratorGroup_Definitions[Definition],
+        PerpetratorGroup_Definitions[Perpetrator Group], _Group
+    )
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Tooltip - Perpetrator Term + Definition</strong></summary>
+
+```DAX
+
+VAR _Type =
+    SELECTEDVALUE ( 'D Perpetrator Type'[Perpetrator Type] )
+VAR _Group =
+    SELECTEDVALUE ( 'DimPerpetratorGroup'[Perpetrator Group] )
+
+VAR _Term =
+    COALESCE ( _Type, _Group )
+
+VAR _Definition =
+    IF(
+        NOT ISBLANK ( _Type ),
+        LOOKUPVALUE(
+            PerpetratorType_Definitions[Definition],
+            PerpetratorType_Definitions[Perpetrator Type], _Type
+        ),
+        LOOKUPVALUE(
+            PerpetratorGroup_Definitions[Definition],
+            PerpetratorGroup_Definitions[Perpetrator Group], _Group
+        )
+    )
+RETURN
+IF(
+    NOT ISBLANK(_Term) && NOT ISBLANK(_Definition),
+    _Term & " - " & _Definition,
+    BLANK()
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Tooltip - PerpParam Active</strong></summary>
+
+```DAX
+
+VAR _fields =
+    SELECTEDVALUE ( 'Perpetrator Dimension Parameter'[Perpetrator Dimension Parameter Fields] )
+RETURN
+SWITCH(
+    TRUE(),
+    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Motive"), "Motive",
+    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Perpetrator Type"), "Perpetrator Type",
+    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Perpetrator Group"), "Perpetrator Group",
+    BLANK()
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Tooltip - PerpParam TermDefinition</strong></summary>
+
+```DAX
+
+VAR _active = [Tooltip - PerpParam Active]
+
+VAR _Type  = SELECTEDVALUE ( 'D Perpetrator Type'[Perpetrator Type] )
+VAR _Group = SELECTEDVALUE ( 'DimPerpetratorGroup'[Perpetrator Group] )
+VAR _Motive = SELECTEDVALUE ( 'D Motive'[Motive] )
+
+RETURN
+SWITCH(
+    _active,
+
+    "Motive",
+        LOOKUPVALUE(
+            Motive_Definitions[TermDefinition],
+            Motive_Definitions[Motive], _Motive
+        ),
+
+    "Perpetrator Type",
+        LOOKUPVALUE(
+            PerpetratorType_Definitions[TermDefinition],
+            PerpetratorType_Definitions[Perpetrator Type], _Type
+        ),
+
+    "Perpetrator Group",
+        LOOKUPVALUE(
+            PerpetratorGroup_Definitions[TermDefinition],
+            PerpetratorGroup_Definitions[Perpetrator Group], _Group
+        ),
+
+    BLANK()
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Tooltip Definition</strong></summary>
+
+```DAX
+VAR _order = SELECTEDVALUE('Attack Dimension Parameter'[Attack Dimension Parameter Order]) RETURN SWITCH( _order, 0, SELECTEDVALUE(AttackMeans_Definitions[Definition]), 1, SELECTEDVALUE(AttackContext_Definitions[Definition]), 2, SELECTEDVALUE(IncidentSetting_Definitions[Definition]), BLANK() )
+```
+
+</details>
+
+<details>
+<summary><strong>Top 10 Share %</strong></summary>
+
+```DAX
+
+VAR GlobalTotal =
+    CALCULATE(
+        [Selected Outcome Total1],
+        REMOVEFILTERS('D Location'[Country])
+    )
+VAR Top10Total =
+    SUMX(
+        TOPN(
+            10,
+            ALL('D Location'[Country]),
+            CALCULATE([Selected Outcome Total1]),
+            DESC,
+            'D Location'[Country], ASC
+        ),
+        CALCULATE([Selected Outcome Total1])
+    )
+RETURN
+DIVIDE( Top10Total, GlobalTotal )
+```
+
+</details>
+
+<details>
+<summary><strong>Top 5 Countries Group</strong></summary>
+
+```DAX
+
+IF (
+    [Country Rank (Incidents)] <= 5,
+    "Top 5 countries",
+    "All other countries"
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Top Countries Title (Dynamic)</strong></summary>
+
+```DAX
+
+VAR _selOutcome =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR _metricText =
+    IF ( _selOutcome = "Incidents", "incidents", [Outcome Phrase (Title)] )
+
+VAR _baseTitle =
+    "Countries with the most " & _metricText & " " & [Year Phrase (Title)]
+
+-- Show note only when a single country is selected
+VAR _singleCountrySelected =
+    HASONEVALUE ( 'D Location'[Country] )
+
+VAR _noteCountry =
+    IF ( _singleCountrySelected, " (not impacted by country selection)", "" )
+
+VAR _totalValGlobal =
+    CALCULATE (
+        COALESCE ( [Selected Outcome Total1], 0 ),
+        REMOVEFILTERS ( 'D Location'[Country] )
+    )
+
+VAR _noDataSuffix =
+    IF ( _selOutcome = "Incidents", " (no incidents recorded)", " (no data recorded)" )
+
+VAR _noteNoData =
+    IF ( _totalValGlobal = 0, _noDataSuffix, "" )
+
+RETURN
+    _baseTitle & _noteCountry & _noteNoData
+```
+
+</details>
+
+<details>
+<summary><strong>Top Countries Title (Kidnapped)</strong></summary>
+
+```DAX
+
+IF(
+    [All Countries Selected] = 1,
+    "Total Kidnapped by Country (Top 3)",
+    "Top countries chart is available only when Country = All"
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Top Countries Title (Killed)</strong></summary>
+
+```DAX
+
+IF(
+    [All Countries Selected] = 1,
+    "Total Killed by Country (Top 3)",
+    "Top countries chart available only when Country = All"
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Top Countries Title (Wounded)</strong></summary>
+
+```DAX
+
+IF(
+    [All Countries Selected] = 1,
+    "Total Wounded by Country (Top 3)",
+    "Top countries chart is available only when Country = All"
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Top Countries Value (Display)</strong></summary>
+
+```DAX
+
+IF(
+    [All Countries Selected] = 1,
+    [Selected Outcome Total1],
+    BLANK()
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>TopN + Other Value</strong></summary>
+
+```DAX
+
+VAR r = SELECTEDVALUE('TopN Axis'[Rank])
+
+VAR Top10Table =
+    TOPN(
+        10,
+        ALL('D Location'[Country]),
+        CALCULATE([Selected Outcome Total1]),
+        DESC,
+        'D Location'[Country], ASC
+    )
+
+VAR GlobalTotal =
+    CALCULATE(
+        [Selected Outcome Total],
+        REMOVEFILTERS('D Location'[Country])
+    )
+
+VAR Top10Total =
+    SUMX( Top10Table, CALCULATE([Selected Outcome Total1]) )
+
+VAR NthValue =
+    IF(
+        r <= 10,
+        VAR NthCountry =
+            MAXX(
+                TOPN(
+                    1,
+                    TOPN( r, Top10Table, CALCULATE([Selected Outcome Total1]), DESC, 'D Location'[Country], ASC ),
+                    CALCULATE([Selected Outcome Total1]), ASC,
+                    'D Location'[Country], DESC
+                ),
+                'D Location'[Country]
+            )
+        RETURN
+            CALCULATE( [Selected Outcome Total1], KEEPFILTERS('D Location'[Country] = NthCountry) )
+    )
+
+RETURN
+IF(
+    r <= 10,
+    NthValue,
+    GlobalTotal - Top10Total
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>TopN Country Name</strong></summary>
+
+```DAX
+
+VAR r = SELECTEDVALUE('TopN Axis'[Rank])
+VAR Top10 =
+    TOPN(
+        10,
+        ADDCOLUMNS(
+            ALL('D Location'[Country]),
+            "__v", CALCULATE([Selected Outcome Total1])
+        ),
+        [__v], DESC,
+        'D Location'[Country], ASC
+    )
+VAR NthRow =
+    TOPN(
+        1,
+        TOPN(
+            r,
+            Top10,
+            [__v], DESC,
+            'D Location'[Country], ASC
+        ),
+        [__v], ASC,
+        'D Location'[Country], DESC
+    )
+RETURN
+IF(
+    r = 999,
+    "Other countries",
+    MAXX(NthRow, 'D Location'[Country])
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>TopN Cumulative %</strong></summary>
+
+```DAX
+
+VAR r = SELECTEDVALUE('TopN Axis'[Rank])
+
+VAR GlobalTotal =
+    CALCULATE(
+        [Selected Outcome Total1],
+        REMOVEFILTERS('D Location'[Country])
+    )
+
+VAR CumTopN =
+    SUMX(
+        FILTER( ALL('TopN Axis'), 'TopN Axis'[Rank] <= r && 'TopN Axis'[Rank] <= 10 ),
+        CALCULATE( [TopN + Other Value] )
+    )
+
+RETURN
+IF(
+    r = 999,
+    1,
+    DIVIDE( CumTopN, GlobalTotal )
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Total affected</strong></summary>
+
+```DAX
+
+[Total Killed]
++ [Total Wounded]
++ [Total Kidnapped] 
++ [Total Detained] 
+```
+
+</details>
+
+<details>
+<summary><strong>Total Countries (Year + Country only)</strong></summary>
+
+```DAX
+
+VAR Countries =
+    VALUES ( 'D Location'[Country] )
+RETURN
+COUNTROWS (
+    FILTER (
+        Countries,
+        CALCULATE (
+            COALESCE ( [Total Incidents], 0 ),
+            REMOVEFILTERS ( Outcome[Outcome] )
+        ) > 0
+    )
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Total Detained</strong></summary>
+
+```DAX
+
+SUMX(
+    'F Incident',
+    COALESCE('F Incident'[Nationals Detained],0) +
+    COALESCE('F Incident'[Internationals Detained],0)
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Total Detained (2025+)</strong></summary>
+
+```DAX
+
+IF(
+    MAX('D Date'[Year]) >= 2025,
+    [Total Detained],
+    BLANK()
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Total Detained (pre-2025)</strong></summary>
+
+```DAX
+
+IF(
+    MAX('D Date'[Year]) <= 2025,
+    [Total Detained],
+    BLANK()
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Total Incidents</strong></summary>
+
+```DAX
+
+COUNTROWS ( 'F Incident' )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Incidents (Selected Outcome)</strong></summary>
+
+```DAX
+
+SWITCH(
+    SELECTEDVALUE(Outcome[Outcome]),
+    "Killed",     [Incidents Killed],
+    "Wounded",    [Incidents Wounded],
+    "Kidnapped",  [Incidents Kidnapped],
+    BLANK()
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Total Internationals Detained</strong></summary>
+
+```DAX
+
+COALESCE( SUM('F Incident'[Internationals Detained]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Internationals Kidnapped</strong></summary>
+
+```DAX
+
+COALESCE( SUM('F Incident'[Internationals Kidnapped]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Internationals Killed</strong></summary>
+
+```DAX
+
+COALESCE( SUM('F Incident'[Internationals Killed]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Internationals Wounded</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Internationals Wounded] ), 0 )
+
+
+```
+
+</details>
+
+<details>
+<summary><strong>Total Kidnapped</strong></summary>
+
+```DAX
+
+SUMX(
+    'F Incident',
+    COALESCE('F Incident'[Nationals Kidnapped],0) +
+    COALESCE('F Incident'[Internationals Kidnapped],0)
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Total Kidnapped (Top Countries Display))</strong></summary>
+
+```DAX
+
+IF( [All Countries Selected (Slicer)] = 1, [Total Kidnapped], BLANK() )
+
+```
+
+</details>
+
+<details>
+<summary><strong>Total Killed</strong></summary>
+
+```DAX
+
+SUMX(
+    'F Incident',
+    COALESCE('F Incident'[Nationals Killed],0) +
+    COALESCE('F Incident'[Internationals Killed],0)
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Total Killed (Heatmap)</strong></summary>
+
+```DAX
+
+VAR k = [Total Killed]
+RETURN IF(k > 0, k, BLANK())
+
+```
+
+</details>
+
+<details>
+<summary><strong>Total Killed (Top Countries Display)</strong></summary>
+
+```DAX
+
+IF( [All Countries Selected (Slicer)] = 1, [Total Killed], BLANK() )
+
+
+```
+
+</details>
+
+<details>
+<summary><strong>Total Nationals Detained</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Nationals Detained]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Nationals Kidnapped</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Nationals Kidnapped]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Nationals Killed</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Nationals Killed]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Nationals Wounded</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Nationals Wounded]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims Females</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Gender Female]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims Gender Unknown</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Gender Unknown]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims IFRC ICRC</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[IFRC ICRC]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims INGO</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[INGO]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims Males</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Gender Male] ), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims NNGO</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[NNGO]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims NRCS</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[NRCS]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims Other Org</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[Other Org] ), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Victims UN</strong></summary>
+
+```DAX
+
+COALESCE ( SUM ( 'F Incident'[UN]), 0 )
+```
+
+</details>
+
+<details>
+<summary><strong>Total Wounded</strong></summary>
+
+```DAX
+
+SUMX (
+    'F incident',
+    COALESCE ( 'F incident'[Nationals wounded], 0 )
+    + COALESCE ( 'F incident'[Internationals wounded], 0 )
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Total Wounded (Top Countries Display)</strong></summary>
+
+```DAX
+
+IF(
+    [All Countries Selected (Slicer)]= 1,
+    [Total Wounded],
+    BLANK()
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Trend Multi-Outcome Title</strong></summary>
+
+```DAX
+
+VAR _countrySingle =
+    SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR _availableCountries =
+    CALCULATETABLE (
+        VALUES ( 'D Location'[Country] ),
+        REMOVEFILTERS ( 'D Location'[Country] ),
+        'D Location'[Country] <> BLANK()
+    )
+
+VAR _selectedCountries =
+    FILTER (
+        VALUES ( 'D Location'[Country] ),
+        'D Location'[Country] <> BLANK()
+    )
+
+VAR _excludedCount =
+    COUNTROWS ( EXCEPT ( _availableCountries, _selectedCountries ) )
+
+VAR _allCountriesSelected =
+    _excludedCount = 0
+
+VAR _baseTitle =
+    SWITCH (
+        TRUE(),
+        _allCountriesSelected,
+            "Outcomes of attacks on aid workers worldwide across all reported years",
+        NOT ISBLANK ( _countrySingle ),
+            "Outcomes of attacks on aid workers in " & _countrySingle & " across all reported years",
+        "Outcomes of attacks on aid workers in selected countries across all reported years"
+    )
+
+VAR _yearFiltered =
+    ISFILTERED ( 'D Date'[Year] )
+        || ISCROSSFILTERED ( 'D Date'[Year] )
+
+VAR _selectedOutcome =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+
+VAR _countChangedFromDefault =
+    _selectedOutcome <> "All"
+
+VAR _showNote =
+    _yearFiltered || _countChangedFromDefault
+
+RETURN
+    _baseTitle
+        & IF ( _showNote, " (not impacted by year or count selection)", "" )
+```
+
+</details>
+
+<details>
+<summary><strong>Update Message</strong></summary>
+
+```DAX
+
+"The report is updated weekly, with the most recent update on "
+& FORMAT ( MAX ( refresh_audit[last_successful_load] ), "d MMMM yyyy" )
+& "."
+```
+
+</details>
+
+<details>
+<summary><strong>Wounded (3-year avg)</strong></summary>
+
+```DAX
+
+VAR IsSingleYear = HASONEVALUE ( 'D Date'[Year] )
+VAR Y = SELECTEDVALUE ( 'D Date'[Year] )
+VAR FirstY = [First Data Year]
+
+VAR V1 =
+    CALCULATE (
+        [Total Wounded],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 1
+    )
+VAR V2 =
+    CALCULATE (
+        [Total Wounded],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 2
+    )
+VAR V3 =
+    CALCULATE (
+        [Total Wounded],
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 3
+    )
+
+VAR YearsOverZero =
+    IF ( NOT ISBLANK ( V1 ) && V1 > 0, 1, 0 ) +
+    IF ( NOT ISBLANK ( V2 ) && V2 > 0, 1, 0 ) +
+    IF ( NOT ISBLANK ( V3 ) && V3 > 0, 1, 0 )
+
+RETURN
+IF (
+    NOT IsSingleYear
+        || Y <= FirstY + 2
+        || YearsOverZero < 2,
+    BLANK(),
+    DIVIDE ( COALESCE ( V1, 0 ) + COALESCE ( V2, 0 ) + COALESCE ( V3, 0 ), 3 )
+)
+
+
+```
+
+</details>
+
+<details>
+<summary><strong>Wounded (line)</strong></summary>
+
+```DAX
+
+IF (
+    SELECTEDVALUE ( Outcome[Outcome], "Killed" ) = "Wounded",
+    [Total Wounded],
+    BLANK()
+)
+```
+
+</details>
+
+<details>
+<summary><strong>Wounded (Previous Year)</strong></summary>
+
+```DAX
+
+VAR Y = [Selected Year]
+VAR FirstY = [First Data Year]
+RETURN
+IF (
+    Y <= FirstY,
+    BLANK(),
+    CALCULATE (
+        [Total Wounded],
+        FILTER ( ALL ( 'D Date'[Year] ), 'D Date'[Year] = Y - 1 )
+    )
+)
+
+
+```
+
+</details>
+
+<details>
+<summary><strong>Wounded (Selected Year)</strong></summary>
+
+```DAX
+
+VAR Y = [Selected Year]
+RETURN
+CALCULATE(
+    [Total Wounded],
+    FILTER(ALL('D Date'[Year]), 'D Date'[Year] = Y)
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Wounded Comparison Title</strong></summary>
+
+```DAX
+
+VAR IsSingleYear = HASONEVALUE ( 'D Date'[Year] )
+
+VAR IsGlobal =
+    NOT ISFILTERED ( 'D Location'[Country] )
+
+VAR CountryLabel =
+    SELECTEDVALUE ( 'D Location'[Country] )
+
+VAR TitlePrefix =
+    IF (
+        IsGlobal,
+        "Wounded globally — ",
+        "Wounded in " & CountryLabel & " — "
+    )
+
+VAR Y = SELECTEDVALUE ( 'D Date'[Year] )
+VAR CurWounded = COALESCE ( [Total Wounded], 0 )
+
+VAR CurIncRows =
+    CALCULATE (
+        COUNTROWS ( 'F Incident' ),
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y
+    )
+
+VAR PrevIncRows =
+    CALCULATE (
+        COUNTROWS ( 'F Incident' ),
+        REMOVEFILTERS ( 'D Date'[Year] ),
+        'D Date'[Year] = Y - 1
+    )
+
+VAR FirstIncidentYear =
+    MINX (
+        FILTER (
+            ALL ( 'D Date'[Year] ),
+            CALCULATE ( COUNTROWS ( 'F Incident' ) ) > 0
+        ),
+        'D Date'[Year]
+    )
+
+VAR PrevWounded =
+    COALESCE (
+        CALCULATE (
+            [Total Wounded],
+            REMOVEFILTERS ( 'D Date'[Year] ),
+            'D Date'[Year] = Y - 1
+        ),
+        0
+    )
+
+VAR YoY_Pct =
+    IF ( PrevWounded > 0, DIVIDE ( CurWounded - PrevWounded, PrevWounded ), BLANK () )
+
+VAR BracketLabel =
+    SWITCH (
+        TRUE (),
+
+        PrevIncRows = 0,
+            BLANK (),
+
+        PrevWounded > 0 && CurWounded > PrevWounded,
+            "(" & UNICHAR ( 9650 ) & " " & FORMAT ( YoY_Pct, "0%" ) & ")",
+
+        PrevWounded > 0 && CurWounded < PrevWounded,
+            "(" & UNICHAR ( 9660 ) & " " & FORMAT ( ABS ( YoY_Pct ), "0%" ) & ")",
+
+        PrevWounded > 0 && CurWounded = PrevWounded,
+            "(no change)",
+
+        PrevWounded = 0 && CurWounded > 0,
+            "(" & UNICHAR ( 9650 ) & " from 0)",
+
+        PrevWounded = 0 && CurWounded = 0,
+            "(no change)"
+    )
+
+VAR Avg3 = [Wounded (3-year avg)]
+VAR AvgText =
+    IF (
+        NOT ISBLANK ( Avg3 ),
+        " and the 3-year average (" & FORMAT ( Y - 3, "0" ) & "–" & FORMAT ( Y - 1, "0" ) & ")",
+        BLANK ()
+    )
+
+VAR MainText =
+    SWITCH (
+        TRUE (),
+
+        NOT IsSingleYear,
+            "Graph not applicable for multiple years",
+
+        CurIncRows = 0,
+            FORMAT ( Y, "0" ) & " (no incidents recorded)",
+
+        Y = FirstIncidentYear,
+            FORMAT ( Y, "0" ) & " (first year with incidents recorded)",
+
+        PrevIncRows = 0,
+            FORMAT ( Y, "0" ) & " (no incidents recorded in " & FORMAT ( Y - 1, "0" ) & ")",
+
+        TRUE,
+            FORMAT ( Y, "0" ) &
+            " compared with " & FORMAT ( Y - 1, "0" ) &
+            IF ( NOT ISBLANK ( BracketLabel ), " " & BracketLabel, BLANK () ) &
+            AvgText
+    )
+
+RETURN
+TitlePrefix & MainText
+```
+
+</details>
+
+<details>
+<summary><strong>Year Label (Title)</strong></summary>
+
+```DAX
+
+VAR _hasOneYear = HASONEVALUE('D Date'[Year])
+VAR _hasYearFilter = ISFILTERED('D Date'[Year])
+VAR _year = SELECTEDVALUE('D Date'[Year])
+RETURN
+SWITCH(
+    TRUE(),
+    NOT _hasYearFilter, "all years",
+    _hasOneYear, FORMAT(_year, "0"),
+    "selected years"
+)
+
+```
+
+</details>
+
+<details>
+<summary><strong>Year Phrase (Title)</strong></summary>
+
+```DAX
+
+VAR _hasOneYear = HASONEVALUE('D Date'[Year])
+VAR _hasYearFilter = ISFILTERED('D Date'[Year])
+VAR _year = SELECTEDVALUE('D Date'[Year])
+RETURN
+SWITCH(
+    TRUE(),
+    NOT _hasYearFilter, "across all reported years",
+    _hasOneYear, "in " & FORMAT(_year, "0"),
+    "across all reported years"
+)
+
+```
+
+</details>
+
 </details>
