@@ -64,7 +64,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 ## Technical References
 
 <details>
-<summary><strong>Reference A – Metadata and Column Descriptions</strong></summary>
+<summary><strong>Reference 1 – Metadata and Column Descriptions</strong></summary>
 
 | Column name | Description | Data type and allowed values |
 |---|---|---|
@@ -116,7 +116,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 </details>
 
 <details>
-<summary><strong>Reference B – Pipeline Activities and Functions</strong></summary>
+<summary><strong>Reference 2 – Pipeline Activities and Functions</strong></summary>
 
 | Execution phase | Activity type | Activity name (pattern) | Function | Pipeline |
 |---|---|---|---|---|
@@ -149,7 +149,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 </details>
 
 <details>
-<summary><strong>Reference C – Data Preprocessing and Standardization Rules</strong></summary>
+<summary><strong>Reference 3 – Data Preprocessing and Standardization Rules</strong></summary>
 
 | Category | Operation | Columns Affected | Rule / Modification |
 |---|---|---|---|
@@ -177,7 +177,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 </details>
 
 <details>
-<summary><strong>Reference D – Data Quality Validation Results Log</strong></summary>
+<summary><strong>Reference 4 – Data Quality Validation Results Log</strong></summary>
 
 | id_check | etl_phase | etl_table | etl_checktype | description_result | etl_result |
 |---|---|---|---|---|---|
@@ -211,7 +211,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 </details>
 
 <details>
-<summary><strong>Reference E – Semantic Model: Tables and Columns</strong></summary>
+<summary><strong>Reference 5 – Semantic Model: Tables and Columns</strong></summary>
 
 | Table | Keys | Attributes | Core Analytical Measures |
 |---|---|---|---|
@@ -229,7 +229,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 </details>
 
 <details>
-<summary><strong>Reference F – Full DAX Measure Catalogue</strong></summary>
+<summary><strong>Reference 6 – Full DAX Measure Catalogue</strong></summary>
 
 This reference lists the measures used in the Power BI report and their DAX expressions.
 
