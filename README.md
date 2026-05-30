@@ -67,10 +67,10 @@ with automated failure notifications.
 
 ---
 
-## Appendices
+## References
 
 <details>
-<summary><strong>Appendix A – AWSD Metadata and Column Descriptions</strong></summary>
+<summary><strong>Reference A – AWSD Metadata and Column Descriptions</strong></summary>
 
 | Column name | Description | Data type and allowed values |
 |---|---|---|
@@ -122,7 +122,7 @@ with automated failure notifications.
 </details>
 
 <details>
-<summary><strong>Appendix B – AWSD Pipeline Activities and Functions</strong></summary>
+<summary><strong>Reference B – AWSD Pipeline Activities and Functions</strong></summary>
 
 | Execution phase | Activity type | Activity name (pattern) | Function | Pipeline |
 |---|---|---|---|---|
@@ -155,7 +155,7 @@ with automated failure notifications.
 </details>
 
 <details>
-<summary><strong>Appendix C – AWSD Data Preprocessing and Standardization Rules</strong></summary>
+<summary><strong>Reference C – AWSD Data Preprocessing and Standardization Rules</strong></summary>
 
 | Category | Operation | Columns Affected | Rule / Modification |
 |---|---|---|---|
@@ -183,7 +183,7 @@ with automated failure notifications.
 </details>
 
 <details>
-<summary><strong>Appendix D – AWSD Data Quality Validation Results Log</strong></summary>
+<summary><strong>Reference D – AWSD Data Quality Validation Results Log</strong></summary>
 
 | id_check | etl_phase | etl_table | etl_checktype | description_result | etl_result |
 |---|---|---|---|---|---|
@@ -217,7 +217,7 @@ with automated failure notifications.
 </details>
 
 <details>
-<summary><strong>Appendix E – AWSD Semantic Model: Tables and Columns</strong></summary>
+<summary><strong>Reference E – AWSD Semantic Model: Tables and Columns</strong></summary>
 
 | Table | Keys | Attributes | Measures |
 |---|---|---|---|
