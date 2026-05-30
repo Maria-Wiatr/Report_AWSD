@@ -5,7 +5,7 @@ from the [Aid Worker Security Database (AWSD)](https://www.aidworkersecurity.org
 
 Built as part of a master's dissertation at NOVA Information Management School, 2026.
 
-> 🔗 [View the live report](https://maria-wiatr.github.io/Report_AWSD_em/) 🔗
+🔗 [View the live report](https://maria-wiatr.github.io/Report_AWSD_em/) 🔗
 
 ---
 
