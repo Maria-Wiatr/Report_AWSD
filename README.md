@@ -108,7 +108,7 @@ This reference describes the AWSD dataset fields, including column names, data t
 <details>
 <summary><strong>Reference 2 – Pipeline Activities and Functions</strong></summary>
 
-This reference lists the activities and functions used in each pipeline, including their type, purpose, and execution order.
+This reference lists the activities and functions used in each pipeline, including their execution phase, activity type, and purpose.
 
 | Execution phase | Activity type | Activity name (pattern) | Function | Pipeline |
 |---|---|---|---|---|
@@ -143,7 +143,7 @@ This reference lists the activities and functions used in each pipeline, includi
 <details>
 <summary><strong>Reference 3 – Data Preprocessing and Standardization Rules</strong></summary>
 
-This reference documents the cleansing, deduplication, and standardisation rules applied during the Curation & Staging Load pipeline.
+This reference documents the preprocessing and standardisation rules applied during the Curation & Staging Load pipeline, organised by category, operation, and affected columns.
 
 | Category | Operation | Columns Affected | Rule / Modification |
 |---|---|---|---|
@@ -209,7 +209,7 @@ This reference logs the results of the five quality rules executed during the Da
 <details>
 <summary><strong>Reference 5 – Semantic Model: Tables and Columns</strong></summary>
 
-This reference lists all tables and columns in the Power BI semantic model, including data types and descriptions.
+This reference lists all tables and columns in the Power BI semantic model, organised by keys, attributes, and core analytical measures.
 
 | Table | Keys | Attributes | Core Analytical Measures |
 |---|---|---|---|
