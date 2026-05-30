@@ -44,7 +44,7 @@ The table below summarises the role of each pipeline component:
 | **Data Warehouse Load Pipeline** | Loads validated staging data into the dimensional model; generates surrogate keys and resolves foreign keys |
 | **Failure Notification Pipeline** | Sends an automated alert if any pipeline fails — enables early issue detection without manual monitoring |
 
-<img width="949" height="272" alt="image" src="https://github.com/user-attachments/assets/63ff3cce-ffc6-4908-b238-2dfe8ae92cc9" />
+<img width="949" height="345" alt="image" src="https://github.com/user-attachments/assets/63ff3cce-ffc6-4908-b238-2dfe8ae92cc9" />
 
 
 ---
