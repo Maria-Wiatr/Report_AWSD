@@ -213,7 +213,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 <details>
 <summary><strong>Reference E – Semantic Model: Tables and Columns</strong></summary>
 
-| Table | Keys | Attributes | Measures |
+| Table | Keys | Attributes | Core Analytical Measures |
 |---|---|---|---|
 | F Incident | incident_id, fk_date, fk_location, fk_attack_context, fk_attack_means, fk_incident_setting, fk_motive, fk_perpetrator_type, fk_source, fk_verification_status | Details, Perpetrator Name, Latitude, Longitude | Nationals Detained, Nationals Kidnapped, Nationals Killed, Nationals Wounded, Internationals Detained, Internationals Kidnapped, Internationals Killed, Internationals Wounded, Total Detained, Total Kidnapped, Total Killed, Total Wounded, Total Nationals Detained, Total Nationals Kidnapped, Total Nationals Killed, Total Nationals Wounded, Total Internationals Detained, Total Internationals Kidnapped, Total Internationals Killed, Total Internationals Wounded, Total Victims IFRC ICRC, Total Victims INGO, Total Victims NNGO, Total Victims Other Org, Total Victims Males, Total Victims Females, Total Victims Gender Unknown |
 | D Date | sk_date | Date, Full Date, Month, Month Abbrev, Month Number, Monthday Number, Quarter, Quarter Name, Weekday, Weekday Abbrev, Weekday Number, Weekday Type, Year | N/A |
@@ -229,7 +229,7 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 </details>
 
 <details>
-<summary><strong>Reference F – DAX measures</strong></summary>
+<summary><strong>Reference F – Full DAX measure catalogue</strong></summary>
 
 This reference lists the measures used in the Power BI report and their DAX expressions.
 
