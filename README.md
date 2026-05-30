@@ -44,24 +44,8 @@ The table below summarises the role of each pipeline component:
 | **Data Warehouse Load Pipeline** | Loads validated staging data into the dimensional model; generates surrogate keys and resolves foreign keys |
 | **Failure Notification Pipeline** | Sends an automated alert if any pipeline fails — enables early issue detection without manual monitoring |
 
-It follows the Medallion pattern:
+<img width="949" height="272" alt="image" src="https://github.com/user-attachments/assets/63ff3cce-ffc6-4908-b238-2dfe8ae92cc9" />
 
-- **Bronze** — raw AWSD JSON ingested daily via HTTP GET, no transformation
-- **Silver** — deduplication, cleaning, standardisation, staging into dimension and fact tables
-- **Gold** — validated star-schema tables loaded into Fabric Data Warehouse; published
-  via a Direct Lake semantic model in Power BI
-
-The dimensional model follows **Kimball** methodology:
-
-- **Fact table** — one row per recorded security incident; measures include counts of
-  killed, wounded, kidnapped, and detained persons, disaggregated by nationality status
-  (national/international), organisation type, and gender
-- **Dimensions** — Date, Location, Attack Context, Attack Means, Incident Setting,
-  Motive, Perpetrator Type, Source, Verification Status
-
-Four sub-pipelines handle ingestion, curation and staging, data validation (5 quality
-rules run in parallel), and warehouse load. A master pipeline orchestrates all four
-with automated failure notifications.
 
 ---
 
