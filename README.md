@@ -252,7 +252,7 @@ SWITCH(
 </details>
 
 <details>
-<summary><code>Tooltip - PerpParam TermDefinition correct</code></summary>
+<summary><code>Tooltip - PerpParam TermDefinition</code></summary>
 
 ```DAX
 VAR _active = [Tooltip - PerpParam Active1]
@@ -290,7 +290,7 @@ SWITCH(
 </details>
 
 <details>
-<summary><code>Tooltip Definition correct</code></summary>
+<summary><code>Tooltip Definition</code></summary>
 
 ```DAX
 VAR _order = SELECTEDVALUE('Attack Dimension Parameter1'[Parameter Order]) RETURN SWITCH( _order, 0, SELECTEDVALUE(AttackMeans_Definitions[Definition]), 1, SELECTEDVALUE(AttackContext_Definitions[Definition]), 2, SELECTEDVALUE(IncidentSetting_Definitions[Definition]), BLANK() )
