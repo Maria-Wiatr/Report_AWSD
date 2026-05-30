@@ -231,10 +231,6 @@ This reference lists all tables and columns in the Power BI semantic model, orga
 
 This reference lists the measures used in the Power BI report and their DAX expressions.
 
-<details>
-<summary><strong>Reference F – DAX Measures</strong></summary>
-
-This reference lists the DAX measures used in the semantic model.
 
 <details>
 <summary><strong>% Nationals</strong></summary>
