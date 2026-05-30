@@ -27,6 +27,8 @@ and dynamic visual titles that update automatically with the filter context.
 
 ## Data architecture
 
+<img width="949" height="222" alt="image" src="https://github.com/user-attachments/assets/390302de-df9d-4f41-baa7-58c6420abc8b" />
+
 The pipeline runs entirely in **Microsoft Fabric** and follows the Medallion pattern:
 
 - **Bronze** — raw AWSD JSON ingested daily via HTTP GET, no transformation
