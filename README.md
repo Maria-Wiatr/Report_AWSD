@@ -31,6 +31,14 @@ The data warehouse architecture is implemented entirely within **Microsoft Fabri
 
 <img width="949" height="222" alt="image" src="https://github.com/user-attachments/assets/390302de-df9d-4f41-baa7-58c6420abc8b" />
 
+| Pipeline | What it does |
+|---|---|
+| **Source Ingestion** | Retrieves incident records daily from the AWSD API (JSON) into the Lakehouse — no transformation, source structure preserved |
+| **Curation & Staging Load** | Deduplicates, preprocesses, and standardises Lakehouse data; loads dimension and fact tables into the staging area |
+| **Data Validation & QA** | Runs 5 quality rules in parallel — business key uniqueness, attribute uniqueness, referential integrity |
+| **Data Warehouse Load** | Loads validated staging data into the dimensional model; generates surrogate keys and resolves foreign keys |
+| **Failure Notification** | Sends an automated alert if any pipeline fails — enables early issue detection without manual monitoring |
+
 It follows the Medallion pattern:
 
 - **Bronze** — raw AWSD JSON ingested daily via HTTP GET, no transformation
