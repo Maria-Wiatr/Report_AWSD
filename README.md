@@ -8,9 +8,9 @@ Built as part of a master’s dissertation at NOVA Information Management School
 
 ---
 
-## The report
+## Report Structure
 
-Five pages, each with a distinct purpose:
+The report is organised into five pages, each designed to support a specific stage of data exploration:
 
 | Page | What it does |
 |---|---|
@@ -20,7 +20,7 @@ Five pages, each with a distinct purpose:
 | **Victims** | National vs. international staff, gender distribution, organisation type, and outcome breakdown |
 | **Data Exploration** | Open-ended decomposition tree for user-driven breakdown across any combination of dimensions |
 
-All analytical pages share consistent global filters (country, year, outcome measure)
+All analytical pages share consistent global filters (country, year, incidents and outcome measure)
 and dynamic visual titles that update automatically with the filter context.
 
 ---
