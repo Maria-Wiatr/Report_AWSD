@@ -227,3 +227,1469 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 | D Verification Status | bk_verification_status, sk_verification_status | Verification Status | N/A |
 
 </details>
+
+<details>
+<summary><strong>Reference F – DAX measures</strong></summary>
+
+This reference lists the measures used in the Power BI report and their DAX expressions.
+
+<details>
+<summary><code>Tooltip - PerpParam Active1</code></summary>
+
+```DAX
+VAR _fields =
+    SELECTEDVALUE ( 'Perpetrator Dimension Parameter1'[Parameter Fields] )
+RETURN
+SWITCH(
+    TRUE(),
+    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Motive"), "Motive",
+    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Perpetrator Type"), "Perpetrator Type",
+    NOT ISBLANK(_fields) && CONTAINSSTRING(_fields, "Perpetrator Group"), "Perpetrator Group",
+    BLANK()
+)
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip - PerpParam TermDefinition correct</code></summary>
+
+```DAX
+VAR _active = [Tooltip - PerpParam Active1]
+
+VAR _Type  = SELECTEDVALUE ( 'D Perpetrator Type'[Perpetrator Type] )
+VAR _Group = SELECTEDVALUE ( 'DimPerpetratorGroup'[Perpetrator Group] )
+VAR _Motive = SELECTEDVALUE ( 'D Motive'[Motive] )
+
+RETURN
+SWITCH(
+    _active,
+
+    "Motive",
+        LOOKUPVALUE(
+            Motive_Definitions[TermDefinition],
+            Motive_Definitions[Motive], _Motive
+        ),
+
+    "Perpetrator Type",
+        LOOKUPVALUE(
+            PerpetratorType_Definitions[TermDefinition],
+            PerpetratorType_Definitions[Perpetrator Type], _Type
+        ),
+
+    "Perpetrator Group",
+        LOOKUPVALUE(
+            PerpetratorGroup_Definitions[TermDefinition],
+            PerpetratorGroup_Definitions[Perpetrator Group], _Group
+        ),
+
+    BLANK()
+)
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip Definition correct</code></summary>
+
+```DAX
+VAR _order = SELECTEDVALUE('Attack Dimension Parameter1'[Parameter Order]) RETURN SWITCH( _order, 0, SELECTEDVALUE(AttackMeans_Definitions[Definition]), 1, SELECTEDVALUE(AttackContext_Definitions[Definition]), 2, SELECTEDVALUE(IncidentSetting_Definitions[Definition]), BLANK() )
+```
+
+</details>
+
+<details>
+<summary><code>% Nationals</code></summary>
+
+```DAX
+EXTERNALMEASURE("% Nationals", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Comparison Value (Outcome)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Comparison Value (Outcome)", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Country Phrase (Map Title)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Country Phrase (Map Title)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Country Rank (Nat+Int)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Country Rank (Nat+Int)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Country Rank (Selected Outcome)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Country Rank (Selected Outcome)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Dynamic Total Label</code></summary>
+
+```DAX
+VAR OutcomeSelected =
+    SELECTEDVALUE ( Outcome[Outcome], "All" )
+RETURN
+    SWITCH (
+        OutcomeSelected,
+        "All", "Total affected:",
+        "Killed", "Total killed:",
+        "Wounded", "Total wounded:",
+        "Kidnapped", "Total kidnapped:",
+        "Detained", "Total detained:",
+        "Total affected:"
+    )
+```
+
+</details>
+
+<details>
+<summary><code>Gender Total (All outcomes)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Gender Total (All outcomes)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Has Data (Nat+Int)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Has Data (Nat+Int)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Internationals by Outcome (Axis)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Internationals by Outcome (Axis)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>KPI Column Header</code></summary>
+
+```DAX
+EXTERNALMEASURE("KPI Column Header", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Map Title (Dynamic)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Map Title (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Nat vs Int Difference</code></summary>
+
+```DAX
+EXTERNALMEASURE("Nat vs Int Difference", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Nationals by Outcome (Axis)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Nationals by Outcome (Axis)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Org Victims Total (Pie)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Org Victims Total (Pie)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Outcome Comparison Title</code></summary>
+
+```DAX
+EXTERNALMEASURE("Outcome Comparison Title", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Outcome Label (Title)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Outcome Label (Title)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Outcome Phrase (Title)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Outcome Phrase (Title)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Previous Year (Outcome)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Previous Year (Outcome)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Color</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Color", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total — Internationals</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total — Internationals", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total — Internationals (Plot)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total — Internationals (Plot)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total — Nat+Int</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total — Nat+Int", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total — Nat+Int1</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total — Nat+Int1", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total — Nationals</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total — Nationals", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total — Nationals (Plot)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total — Nationals (Plot)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Year (Outcome)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Year (Outcome)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Show Top 3 Countries</code></summary>
+
+```DAX
+EXTERNALMEASURE("Show Top 3 Countries", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — &lt;Visual Name&gt;</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — <Visual Name>", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Gender Distribution</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Gender Distribution", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Nat vs Int by Outcome</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Nat vs Int by Outcome", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Nat vs Int Trend</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Nat vs Int Trend", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Nationals vs Internationals</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Nationals vs Internationals", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Top Countries (Nat vs Int)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Top Countries (Nat vs Int)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Top Countries Title (Dynamic)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Top Countries Title (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Trend Multi-Outcome Title</code></summary>
+
+```DAX
+EXTERNALMEASURE("Trend Multi-Outcome Title", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Year Label (Title)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Year Label (Title)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Year Phrase (Title)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Year Phrase (Title)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>All Countries Selected</code></summary>
+
+```DAX
+EXTERNALMEASURE("All Countries Selected", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Country Filter Applied</code></summary>
+
+```DAX
+EXTERNALMEASURE("Country Filter Applied", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Country Filter Applied (Slicer Only)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Country Filter Applied (Slicer Only)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Incidents Kidnapped</code></summary>
+
+```DAX
+EXTERNALMEASURE("Incidents Kidnapped", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Incidents Killed</code></summary>
+
+```DAX
+EXTERNALMEASURE("Incidents Killed", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Incidents Wounded</code></summary>
+
+```DAX
+EXTERNALMEASURE("Incidents Wounded", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Show Top Countries Visual</code></summary>
+
+```DAX
+EXTERNALMEASURE("Show Top Countries Visual", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Heatmap (Dynamic)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Heatmap (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Incidents (Selected Outcome)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Incidents (Selected Outcome)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Killed (Heatmap)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Killed (Heatmap)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>All Countries Selected (Slicer)</code></summary>
+
+```DAX
+EXTERNALMEASURE("All Countries Selected (Slicer)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Attack Dimension Definition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Attack Dimension Definition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Country Rank (Incidents)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Country Rank (Incidents)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Country Total (TopN Perpetrator Heatmap)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Country Total (TopN Perpetrator Heatmap)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Country Total (TopN)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Country Total (TopN)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Dynamic Tree Title</code></summary>
+
+```DAX
+VAR _outcome =
+    SELECTEDVALUE(Outcome[Outcome], "Incidents")
+
+VAR _country =
+    SELECTEDVALUE('D Location'[Country], "All")
+
+VAR _year =
+    SELECTEDVALUE('D Date'[Year], "All")
+
+VAR _value =
+    [Selected Outcome Total1]
+
+VAR _outcomeText =
+    SWITCH(
+        _outcome,
+        "Incidents", "incidents",
+        "All", "all affected aid workers",
+        "Killed", "aid workers killed",
+        "Wounded", "aid workers wounded",
+        "Kidnapped", "aid workers kidnapped",
+        "Detained", "aid workers detained",
+        _outcome
+    )
+
+VAR _countryText =
+    IF(
+        _country = "All",
+        "worldwide",
+        "in " & _country
+    )
+
+VAR _yearText =
+    IF(
+        _year = "All",
+        "across all reported years",
+        "in " & _year
+    )
+
+VAR _noDataText =
+    IF(
+        _value = 0,
+        " (no incidents recorded)",
+        ""
+    )
+
+RETURN
+"Aid worker security incidents – "
+    & _outcomeText & " "
+    & _countryText & " "
+    & _yearText
+    & _noDataText
+```
+
+</details>
+
+<details>
+<summary><code>Dynamic Tree Title 2</code></summary>
+
+```DAX
+EXTERNALMEASURE("Dynamic Tree Title", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>First Data Year</code></summary>
+
+```DAX
+EXTERNALMEASURE("First Data Year", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Gender Female Total</code></summary>
+
+```DAX
+EXTERNALMEASURE("Gender Female Total", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Gender Male Total</code></summary>
+
+```DAX
+EXTERNALMEASURE("Gender Male Total", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Gender Unknown Total</code></summary>
+
+```DAX
+EXTERNALMEASURE("Gender Unknown Total", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>HelpHover</code></summary>
+
+```DAX
+EXTERNALMEASURE("HelpHover", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Kidnapped (3-year avg)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Kidnapped (3-year avg)", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Kidnapped (line)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Kidnapped (line)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Kidnapped (Previous Year)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Kidnapped (Previous Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Kidnapped (Selected Year)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Kidnapped (Selected Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Kidnapped Comparison Title</code></summary>
+
+```DAX
+EXTERNALMEASURE("Kidnapped Comparison Title", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Killed (3-year avg)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Killed (3-year avg)", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Killed (line)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Killed (line)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Killed (Previous Year)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Killed (Previous Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Killed (Selected Year)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Killed (Selected Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Killed Comparison Title</code></summary>
+
+```DAX
+EXTERNALMEASURE("Killed Comparison Title", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Killed YoY %</code></summary>
+
+```DAX
+EXTERNALMEASURE("Killed YoY %", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Killed YoY Text</code></summary>
+
+```DAX
+EXTERNALMEASURE("Killed YoY Text", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Last Refresh Text</code></summary>
+
+```DAX
+EXTERNALMEASURE("Last Refresh Text", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Line Title</code></summary>
+
+```DAX
+EXTERNALMEASURE("Line Title", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Map Title</code></summary>
+
+```DAX
+EXTERNALMEASURE("Map Title", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Map Value</code></summary>
+
+```DAX
+EXTERNALMEASURE("Map Value", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Msg — Select one year</code></summary>
+
+```DAX
+EXTERNALMEASURE("Msg — Select one year", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Nationality Group</code></summary>
+
+```DAX
+EXTERNALMEASURE("Nationality Group", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Outcome (3-year avg)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Outcome (3-year avg)", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Prev Year</code></summary>
+
+```DAX
+EXTERNALMEASURE("Prev Year", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Attack Dimension</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Attack Dimension", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Category</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Category", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Definition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Definition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Dictionary Definition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Dictionary Definition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Dictionary Field</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Dictionary Field", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total (Gender)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total (Gender)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Outcome Total1</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Outcome Total1", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Term</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Term", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Selected Year</code></summary>
+
+```DAX
+EXTERNALMEASURE("Selected Year", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Show Comparison</code></summary>
+
+```DAX
+EXTERNALMEASURE("Show Comparison", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Show Country Message</code></summary>
+
+```DAX
+EXTERNALMEASURE("Show Country Message", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Show Top Countries Chart</code></summary>
+
+```DAX
+EXTERNALMEASURE("Show Top Countries Chart", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>SortValue_UnknownLast_AttackPage</code></summary>
+
+```DAX
+EXTERNALMEASURE("SortValue_UnknownLast_AttackPage", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Attack Dimension (Dynamic)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Attack Dimension (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Motive (Dynamic)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Motive (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Organisation Type Distribution</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Organisation Type Distribution", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Title — Perpetrator Type (Dynamic)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Title — Perpetrator Type (Dynamic)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip - Organisation TermDefinition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Tooltip - Organisation TermDefinition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip - Perpetrator Definition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Tooltip - Perpetrator Definition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip - Perpetrator Term + Definition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Tooltip - Perpetrator Term + Definition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip - PerpParam Active</code></summary>
+
+```DAX
+EXTERNALMEASURE("Tooltip - PerpParam Active", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip - PerpParam TermDefinition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Tooltip - PerpParam TermDefinition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip Definition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Tooltip Definition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Top 10 Share %</code></summary>
+
+```DAX
+EXTERNALMEASURE("Top 10 Share %", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Top 5 Countries Group</code></summary>
+
+```DAX
+EXTERNALMEASURE("Top 5 Countries Group", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Top Countries Title (Kidnapped)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Top Countries Title (Kidnapped)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Top Countries Title (Killed)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Top Countries Title (Killed)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Top Countries Title (Wounded)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Top Countries Title (Wounded)", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Top Countries Value (Display)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Top Countries Value (Display)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>TopN + Other Value</code></summary>
+
+```DAX
+EXTERNALMEASURE("TopN + Other Value", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>TopN Country Name</code></summary>
+
+```DAX
+EXTERNALMEASURE("TopN Country Name", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>TopN Cumulative %</code></summary>
+
+```DAX
+EXTERNALMEASURE("TopN Cumulative %", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total affected</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total affected", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Countries (Year + Country only)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Countries (Year + Country only)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Detained</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Detained", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Detained (2025+)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Detained (2025+)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Detained (pre-2025)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Detained (pre-2025)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Incidents</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Incidents", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Internationals Detained</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Internationals Detained", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Internationals Kidnapped</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Internationals Kidnapped", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Internationals Killed</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Internationals Killed", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Internationals Wounded</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Internationals Wounded", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Kidnapped</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Kidnapped", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Kidnapped (Top Countries Display))</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Kidnapped (Top Countries Display))", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Killed</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Killed", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Killed (Top Countries Display)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Killed (Top Countries Display)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Nationals Detained</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Nationals Detained", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Nationals Kidnapped</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Nationals Kidnapped", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Nationals Killed</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Nationals Killed", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Nationals Wounded</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Nationals Wounded", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims Females</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims Females", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims Gender Unknown</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims Gender Unknown", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims IFRC ICRC</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims IFRC ICRC", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims INGO</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims INGO", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims Males</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims Males", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims NNGO</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims NNGO", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims NRCS</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims NRCS", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims Other Org</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims Other Org", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Victims UN</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Victims UN", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Wounded</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Wounded", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Total Wounded (Top Countries Display)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Total Wounded (Top Countries Display)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Update Message</code></summary>
+
+```DAX
+EXTERNALMEASURE("Update Message", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Wounded (3-year avg)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Wounded (3-year avg)", DOUBLE, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Wounded (line)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Wounded (line)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Wounded (Previous Year)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Wounded (Previous Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Wounded (Selected Year)</code></summary>
+
+```DAX
+EXTERNALMEASURE("Wounded (Selected Year)", INTEGER, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Wounded Comparison Title</code></summary>
+
+```DAX
+EXTERNALMEASURE("Wounded Comparison Title", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+<details>
+<summary><code>Tooltip - Motive TermDefinition</code></summary>
+
+```DAX
+EXTERNALMEASURE("Tooltip - Motive TermDefinition", STRING, "DirectQuery to AS - SM_AWSD")
+```
+
+</details>
+
+</details>
+
