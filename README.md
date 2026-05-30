@@ -52,15 +52,6 @@ The semantic model sits on top of the data warehouse and prepares the data for r
 
 ---
 
-## Repository contents
-
-| File | Description |
-|---|---|
-| `Report_AWSD_Maria_Wiatr.pbip` | Power BI project file — open in Power BI Desktop to edit the report |
-| `Report_AWSD_Maria_Wiatr.Report` | Power BI report definition folder |
-
----
-
 ## Technical References
 
 <details>
