@@ -35,7 +35,8 @@ The diagram below shows the end-to-end flow, while the table hereunder explains 
 
 <img width="949" height="222" alt="image" src="https://github.com/user-attachments/assets/390302de-df9d-4f41-baa7-58c6420abc8b" />
 
-<br>
+<br><br>
+
 
 
 | Component | What it does |
