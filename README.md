@@ -3,7 +3,7 @@
 This interactive Power BI report presents major security incidents affecting humanitarian personnel worldwide, using data from the [Aid Worker Security Database (AWSD)](https://www.aidworkersecurity.org/). It supports self-directed exploration of nearly three decades of AWSD records.
 
 
-## 🔗 [View the live report](https://maria-wiatr.github.io/Report_AWSD_em/) 🔗
+📊 [View the live report](https://maria-wiatr.github.io/Report_AWSD_em/)
 
 ---
 
